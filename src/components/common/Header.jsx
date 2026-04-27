@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
-import { Plus, User2 } from "lucide-react";
+import { User2 } from "lucide-react";
 
 const Header = () => {
   return (
@@ -50,12 +50,18 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-      <Button size="lg" className="cursor-pointer hover:bg-secondary px-5">
-        Mаршрут
-      </Button>
-      <Button className="cursor-pointer hover:bg-secondary w-10 h-10 rounded-full">
-        <User2 />
-      </Button>
+      <div className="flex-center gap-2">
+        <Button
+          variant="outline"
+          size="lg"
+          className="cursor-pointer hover:bg-secondary px-5"
+        >
+          Mаршрут
+        </Button>
+        <Button className="cursor-pointer hover:bg-secondary w-10 h-10 rounded-full">
+          <User2 />
+        </Button>
+      </div>
     </header>
   );
 };
