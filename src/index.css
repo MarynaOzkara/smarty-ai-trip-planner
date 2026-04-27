@@ -1,13 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=ADLaM+Display&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
+
+
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-heading: var(--font-sans);
-    --font-sans: 'Geist Variable', sans-serif;
+    --font-heading: var(--font-serif);
+    --font-serif: "Nunito", sans-serif;
+    --font-logo: "ADLaM Display", sans-serif;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -50,23 +53,23 @@
 
 :root {
     --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
+    --foreground: oklch(0.3861 0.0096 17.57);
     --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
+    --card-foreground: oklch(0.3351 0.0331 260.91);
     --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.3351 0.0331 260.91);
+    --primary: oklch(0.6812 0.1653 29.11);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.7288 0.161 29.65);
+    --secondary-foreground: oklch(0.9759 0.0076 61.45);
+    --muted: oklch(0.967 0.0029 264.54);
+    --muted-foreground: oklch(0.5483 0.0263 266.73);
+    --accent: oklch(0.6812 0.1653 29.11);
+    --accent-foreground: oklch(1 0 0);
     --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
+    --border: oklch(0.9276 0.0058 264.53);
+    --input: oklch(0.9276 0.0058 264.53);
+    --ring: oklch(0.7009 0.201198 44.7666);
     --chart-1: oklch(0.87 0 0);
     --chart-2: oklch(0.556 0 0);
     --chart-3: oklch(0.439 0 0);
@@ -123,8 +126,54 @@
     }
   body {
     @apply bg-background text-foreground;
+    font-family: "Nunito", sans-serif;
     }
-  html {
-    @apply font-sans;
+  
+}
+ 
+@layer components {
+    .max-padd-container {
+      @apply mx-auto max-w-342 px-4 lg:px-14
+    }
+    .padd-container {
+      @apply mx-auto px-4 lg:px-14
+    }
+    .flex-center {
+      @apply flex items-center justify-center
+    } 
+    .flex-start {
+      @apply flex items-start justify-start
+    }
+    .flex-between {
+      @apply flex items-center justify-between
+    }
+    .flex-end {
+      @apply flex items-center justify-end
     }
 }
+@layer utilities {
+    h1{
+      @apply text-4xl md:text-5xl font-bold 
+    }
+      h2{
+        @apply text-3xl md:text-4xl font-bold
+      }
+      h3{
+        @apply text-2xl md:text-3xl font-bold
+      }
+      h4{
+        @apply text-xl md:text-2xl font-bold
+      }
+      h5{
+        @apply text-lg font-[montserrat] font-normal text-gray-600 hover:text-accent transition-colors duration-300
+      }
+      h6{
+        @apply text-[26px] font-logo 
+      }
+      p{
+        @apply text-lg font-[montserrat] text-card-foreground
+      } 
+}
+html {
+  scroll-behavior: smooth;
+} 
