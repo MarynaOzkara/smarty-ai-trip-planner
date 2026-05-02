@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
-import {  Menu, User2 } from "lucide-react";
+import { Menu, Plus, User2 } from "lucide-react";
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <header className="bg-background flex-between px-4 md:px-8 lg:px-35 w-full h-20 border-b absolute top-0 right-0 z-50">
       <Link to={"/"}>
@@ -51,13 +52,18 @@ const Header = () => {
         </ul>
       </nav>
       <div className="flex-center gap-2">
-        <Button variant="outline" size="lg" className="cursor-pointer px-5">
+        <Button
+          onClick={() => navigate("/create-trip")}
+          variant="outline"
+          size="lg"
+          className="cursor-pointer px-5 text-sm"
+        >
+          <Plus className="w-4 h-4" />
           Mаршрут
         </Button>
         <div className="flex">
           <Button className="cursor-pointer hover:bg-secondary w-10 h-10 rounded-full">
             <User2 />
-            
           </Button>
         </div>
         <button className="flex md:hidden cursor-pointer hover:bg-secondary p-2 rounded-md">

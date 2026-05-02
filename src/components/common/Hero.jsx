@@ -1,12 +1,14 @@
 import { MapPin, Play } from "lucide-react";
 import { Button } from "../ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative min-h-screen overflow-hidden bg-linear-to-br from-background to-primary/20 py-10">
       <img
         className="absolute w-180 top-0 right-0 md:top-30 md:right-50 opacity-25"
-        src="/public/map.png"
+        src="/map.png"
         alt="World Map"
       />
       <MapPin className="absolute w-7 h-7 top-65 right-124 text-accent" />
@@ -14,6 +16,8 @@ const Hero = () => {
       <MapPin className="absolute w-6 h-6 top-82 right-152 text-accent" />
       <MapPin className="absolute w-6 h-6 top-62 right-144 text-accent" />
       <MapPin className="absolute w-6 h-6 top-70 right-135 text-accent" />
+      <MapPin className="absolute w-6 h-6 top-85 right-125 text-accent" />
+      <MapPin className="absolute w-6 h-6 top-90 right-182 text-accent" />
       <div className=" border max-padd-container pt-20 flex flex-col md:flex-row">
         <div className="border max-w-2xl py-20 px-8">
           <div className="mb-8 inline-flex items-center justify-center gap-4 rounded-full bg-background border border-background/50 px-4 py-1 shadow-sm">
@@ -32,7 +36,10 @@ const Hero = () => {
             готелі та рахує бюджет автоматично
           </p>
           <div className="pt-10 gap-4 flex flex-col md:flex-row">
-            <Button className="py-6 px-10 cursor-pointer hover:bg-secondary text-xl">
+            <Button
+              onClick={() => navigate("/create-trip")}
+              className="py-6 px-10 cursor-pointer hover:bg-secondary text-xl"
+            >
               Створити маршрут
             </Button>
             <Button
@@ -44,10 +51,10 @@ const Hero = () => {
             </Button>
           </div>
         </div>
-        <div className="border relative flex-grow max-w-2xl">
+        <div className="border relative grow max-w-2xl">
           <img
             className="w-80 absolute right-25 bottom-0"
-            src="/public/SmartyAI.png"
+            src="/SmartyAI.png"
             alt="SmartyAi"
           />
         </div>
