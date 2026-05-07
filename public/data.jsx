@@ -1,5 +1,3 @@
-import { CoupleIcon, SoloIcon } from "../src/components/common/Icons";
-
 export const BUDGET_OPTIONS = [
   {
     id: "Budget",
@@ -37,6 +35,6 @@ export const TRAVELER_OPTIONS = [
     id: "With pets",
     title: "З улюбленцем",
     icon: "🐾",
-    desc: "Подорож з домашнім улюбленцем",
+    desc: "У подорож з домашнім улюбленцем",
   },
 ];

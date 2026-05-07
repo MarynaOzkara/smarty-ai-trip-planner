@@ -3,10 +3,27 @@ import { SelectDates } from "../components/common/SelectDates";
 import SelectPlace from "../components/common/SelectPlace";
 import SelectBudget from "../components/common/SelectBudget";
 import SelectTravelers from "../components/common/SelectTravelers";
+import { ArrowRight, CheckCircle } from "lucide-react";
+import { useSelector } from "react-redux";
+import { selectFormData } from "../redux/selectors";
 
 const CreateTrip = () => {
-  const [step, setStep] = useState(4);
-
+  const [step, setStep] = useState(1);
+  const tripData = useSelector(selectFormData);
+  console.log(tripData);
+  const handleBack = () => {
+    if (step > 1) {
+      setStep(step - 1);
+    }
+  };
+  const handleNext = () => {
+    if (step < 4) {
+      setStep(step + 1);
+    } else {
+      generateTrip();
+    }
+  };
+  const generateTrip = () => {};
   return (
     <section className="bg-secondary-foreground min-h-screen py-30">
       <h2 className="text-center mb-10">Створити маршрут</h2>
@@ -106,7 +123,34 @@ const CreateTrip = () => {
               )}
             </div>
             {/* Navigation */}
-            <div></div>
+            <div className="flex-between pt-6 border-t border-gray-100">
+              <button
+                onClick={handleBack}
+                className={`text-gray-500 cursor-pointer hover:text-gray-800 font-medium px-4 py-2 ${step === 1 && "invisible"}`}
+              >
+                Назад
+              </button>
+              <button
+                className={`flex items-center px-8 py-3 rounded-full font-bold text-white transition-all shadow-lg ${
+                  (step === 1 && tripData.locale) ||
+                  (step === 1 && tripData.destination) ||
+                  (step === 2 && tripData.startDate) ||
+                  (step === 2 && tripData.endDate) ||
+                  (step === 3 && tripData.budget) ||
+                  (step === 4 && tripData.travelers)
+                    ? "bg-primary cursor-pointer hover:bg-secondary"
+                    : "bg-gray-300 cursor-not-allowed"
+                }`}
+                onClick={handleNext}
+              >
+                {step === 4 ? "Згенерувати" : "Далі"}
+                {step === 4 ? (
+                  <CheckCircle className="ml-2 w-5 h-5" />
+                ) : (
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
         <div>

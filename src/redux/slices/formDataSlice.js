@@ -14,8 +14,8 @@ const formDataSlice = createSlice({
   },
   reducers: {
     addFormData: (state, action) => {
-      console.log(state);
-      console.log(action);
+      // console.log(state);
+      // console.log(action);
       return { ...state, ...action.payload };
     },
     // Define your reducers here

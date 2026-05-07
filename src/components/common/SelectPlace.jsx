@@ -25,7 +25,6 @@ const SelectPlace = ({ name }) => {
     dispatch(addFormData({ [name]: city }));
   };
 
-  console.log(formData);
   return (
     <>
       {isLoaded && (
