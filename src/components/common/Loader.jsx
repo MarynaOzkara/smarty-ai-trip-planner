@@ -1,0 +1,95 @@
+import { Compass, Hotel, Loader2, Plane } from "lucide-react";
+import { motion } from "framer-motion";
+
+const Loader = () => {
+  return (
+    <div className="min-h-screen flex flex-col items-center bg-secondary-foreground py-30">
+      <div className="relative mb-10">
+        <div className="absolute inset-0 bg-accent/20 rounded-full animate-ping opacity-25" />
+        <div className="relative bg-white p-3 rounded-full shadow-xl">
+          <Loader2 className="w-8 h-8 text-accent animate-spin" />
+        </div>
+      </div>
+      <div className=" relative border flex flex-col items-center">
+        <motion.div
+          initial={{ y: 0 }}
+          animate={{ y: [5, -5, 5] }}
+          transition={{ repeat: Infinity, duration: 3.5 }}
+        >
+          <img className="w-80" src="/public/SmartyAI.png" alt="Smarty AI" />
+        </motion.div>
+        {/* Hotel */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="absolute top-5 left-26 bg-card rounded-xl shadow-xl border p-3"
+        >
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Hotel className="w-4 h-4 text-primary" />
+            </div>
+            <div>
+              <p className="text-xs font-semibold">Готелі</p>
+              <p className="text-xs text-muted-foreground">від 45€/ніч</p>
+            </div>
+          </div>
+        </motion.div>
+        {/* Airticket */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="absolute top-20 right-20 bg-card rounded-xl shadow-xl border p-3"
+        >
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Plane className="w-4 h-4 text-primary" />
+            </div>
+            <div>
+              <p className="text-xs font-semibold">Авиаквитки</p>
+              <p className="text-xs text-muted-foreground">від 30€</p>
+            </div>
+          </div>
+        </motion.div>
+        {/* Routs */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 1.8 }}
+          className="absolute top-65 left-35 bg-card rounded-xl shadow-xl border p-3"
+        >
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Compass className="w-4 h-4 text-primary" />
+            </div>
+            <div>
+              <p className="text-xs font-semibold">Маршрути</p>
+              <p className="text-xs text-muted-foreground">по днях</p>
+            </div>
+          </div>
+        </motion.div>
+        <motion.h2
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 2.4 }}
+          className="mt-10"
+        >
+          <span className="text-accent">Smarty</span> створює маршрут
+          подорожі...
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 3.0 }}
+          className="mt-4 text-gray-600"
+        >
+          Зачекайте поки AI шукає авіаквитки, найкращі готелі, цікаві пам'ятки
+          та локації...
+        </motion.p>
+      </div>
+    </div>
+  );
+};
+
+export default Loader;

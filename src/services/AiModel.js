@@ -1,0 +1,216 @@
+import { GoogleGenAI } from "@google/genai";
+
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
+const chat = ai.chats.create({
+  model: "gemini-2.5-flash",
+  history: [
+    {
+      role: "user",
+      parts: [
+        {
+          text: `Generate a Travel Plan from origin: Tallinn to destination: Sintra, with startDate 03/07/2026 and endDate 05/07/2026 for 2 days for family for a budget budget with a flight details, airlines, flight price with a booking url, hotels options with list of 3-5 hotels with hotel name, hotel address, price only per 1 night, rating, descriptions, booking url, and places to visit nearby with place name, address, details, price ,ticket pricing, booking url, time to travel each of the locations for 1 day plan with best time to visit. Please include also in the itinerary real restaurants or caffe where people can have a breakfast, launch and dinner with only real place name, address and price. Plan please itinerary activities time from 09:00 - 18:00 max places to visit 3 for 1 day. Don’t include in itineraty flight and hotel, start straightaway from activities. And calculate approximately price for trip for one person including flight price, hotel price for all days and activities price. Geve descriptions for tripNote, hotel description, activity and activities details, howToGetTo and transfer details(max 1 sentence) in Ukrainian language, other data in english. hotelName and placeName only data name in english without any description.
+1.Search flights at kiwi.com and add Bookin url www.kiwi.com/deep?affilid=ozkarablogaitripplanner&currency=EUR&departure=anytime&lang=en&return=anytime&returnFromDifferentAirport=false&returnToDifferentAirport=false. Only change destination and dates for trip, for example for Prague from 16 March to 18 March www.kiwi.com/deep?affilid=ozkarablogaitripplanner&currency=EUR&departure=2026-03-16_2026-03-16&destination=prague_cz&lang=en&return=2026-03-18_2026-03-18&returnFromDifferentAirport=false&returnToDifferentAirport=false
+2. Search hotels at booking.com.
+1.Search tickets for activities at https://tiqets.com. When you make a booking url use always this link https://tp.media/r?marker=58449&trs=331062&p=2074&u=https%3A%2F%2Ftiqets.com&campaign_id=89 only change location for activities. For example, for Prague link https://www.tiqets.com/en/prague-attractions-c64162/ it will be https://tp.media/r?marker=58449&trs=331062&p=2074&u=https%3A%2F%2Fwww.tiqets.com%2Fen%2Fprague-attractions-c64162%2F&campaign_id=89
+3.If origin city located in Ukraine, please search flights from Poland, Romania, Slovakia, Hungary, Moldova. For example, if origin is Kyiv, search flights from Warsaw, Budapest, Bratislava, Bucharest, Chisinau. Add in trip buss from origin city to nearest city with flights and add booking url, company name and price for bus tickets search at https://infobus.eu/.
+4.If destination city in Europe has no flights, please search for nearby cities with flights and add to trip transfer from airport to destination city with booking url, company name and price for bus tickets search at https://www.omio.com/. For example, if destination is Sintra, Portugal, search for flights to Lisbon and transfer from Lisbon to Sintra.
+5.If travelers with pets, please search for pet friendly options and add pet-friendly hotels, airlines and activities.
+6.Generate and return a strict JSON response only`,
+        },
+      ],
+    },
+    {
+      role: "model",
+      parts: [
+        {
+          text: JSON.stringify({
+            tripNote:
+              "Цей план подорожі призначений для сім'ї з Таллінна до Сінтрі, Португалія, на бюджетний 2-денний відпочинок. Він охоплює основні пам'ятки, бюджетне житло та варіанти харчування, з акцентом на ефективне використання часу та витрат. Маршрут включає переліт до Лісабона та подальший трансфер до Сінтрі.",
+            flights: {
+              origin: "Tallinn (TLL)",
+              destination: "Lisbon (LIS)",
+              startDate: "2026-07-03",
+              endDate: "2026-07-05",
+              airline: "Ryanair/TAP Air Portugal (with layover)",
+              price: 380,
+              bookingUrl:
+                "https://www.kiwi.com/deep?affilid=ozkarablogaitripplanner&currency=EUR&departure=2026-07-03_2026-07-03&destination=lisbon_pt&lang=en&return=2026-07-05_2026-07-05&returnFromDifferentAirport=false&returnToDifferentAirport=false",
+            },
+            transfer: {
+              company: "CP - Comboios de Portugal",
+              price: 5.0,
+              bookingUrl:
+                "https://www.omio.com/search-results/train/lisbon/sintra/2026-07-03",
+              details:
+                "З аеропорту Лісабона дістаньтеся метро до станції Oriente (червона лінія), а звідти поїздом до Сінтрі.",
+            },
+            hotels: [
+              {
+                hotelName: "Sintra Green Chalet Bed & Breakfast",
+                address: "Estrada Da Pena 39, 2710-543 Sintra, Portugal",
+                price: 85,
+                rating: 9.1,
+                description:
+                  "Затишний пансіонат типу «ліжко та сніданок» з чарівним садом, розташований недалеко від основних пам'яток. Пропонує комфортні номери в тихому районі, ідеально підходить для сімейного відпочинку.",
+                bookingUrl:
+                  "https://www.booking.com/hotel/pt/sintra-green-chalet.en-gb.html?aid=356980&label=gog235jc-1DCAsoQ0IKc2ludHJhLWdyZWVuSAhYBGgOQjNYjAEbmAEBmAENuAEHyAEM2AEB6AEB-AELiAIBqAIDuALM9pD1BsACAdICJDIyNGJlY2YyLTFhMGItNDZmYi05YmM0LTA5Y2ZkMDc0MWM5MWEwLjFjNzE2N2E0NzQzZA",
+                petFriendly: false,
+              },
+              {
+                hotelName: "Casa Azul Hostel",
+                address:
+                  "Rua Dr. Alfredo da Costa, Nº14, 2710-539 Sintra, Portugal",
+                price: 60,
+                rating: 8.7,
+                description:
+                  "Цей хостел розташований у центрі Сінтрі, пропонує приватні та спільні номери. Чудовий вибір для бюджетних мандрівників та сімей, які шукають зручне розташування та привітну атмосферу.",
+                bookingUrl:
+                  "https://www.booking.com/hotel/pt/casa-azul-sintra.en-gb.html?aid=356980&label=gog235jc-1DCAsoQ0IKc2ludHJhLWdyZWVuSAhYBGgOQjNYjAEbmAEBmAENuAEHyAEM2AEB6AEB-AELiAIBqAIDuALM9pD1BsACAdICJDIyNGJlY2YyLTFhMGItNDZmYi05YmM0LTA5Y2ZkMDc0MWM5MWEwLjFjNzE2N2E0NzQzZA",
+                petFriendly: false,
+              },
+              {
+                hotelName: "Hotel Nova Sintra",
+                address:
+                  "Estrada Nacional 247 Km 54, Sintra, 2705-000 Sintra, Portugal",
+                price: 75,
+                rating: 7.8,
+                description:
+                  "Простий, але комфортний готель, розташований трохи далі від центру, але з хорошим доступом до транспорту. Ідеально підходить для сімей, яким потрібне тихе місце для відпочинку за розумну ціну.",
+                bookingUrl:
+                  "https://www.booking.com/hotel/pt/nova-sintra.en-gb.html?aid=356980&label=gog235jc-1DCAsoQ0IKc2ludHJhLWdyZWVuSAhYBGgOQjNYjAEbmAEBmAENuAEHyAEM2AEB6AEB-AELiAIBqAIDuALM9pD1BsACAdICJDIyNGJlY2YyLTFhMGItNDZmYi05YmM0LTA5Y2ZkMDc0MWM5MWEwLjFjNzE2N2E0NzQzZA",
+                petFriendly: false,
+              },
+            ],
+            itinerary: [
+              {
+                day: 1,
+                date: "2026-07-04",
+                activities: [
+                  {
+                    time: "09:00 - 10:00",
+                    activity: "Сніданок у Café Saudade",
+                    placeName: "Café Saudade",
+                    address: "Praça da República 46, 2710-616 Sintra, Portugal",
+                    details:
+                      "Розпочніть день із ситного сніданку в затишному кафе, розташованому біля залізничного вокзалу Сінтрі. Пропонує смачні випічки, каву та легкі страви.",
+                    ticketPricing: 8,
+                    bookingUrl: "N/A",
+                    howToGetTo:
+                      "Пішки від залізничного вокзалу Сінтрі або центру міста.",
+                  },
+                  {
+                    time: "10:30 - 13:00",
+                    activity: "Відвідини палацу Пена",
+                    placeName: "Pena Palace",
+                    address: "Estrada da Pena, 2710-609 Sintra, Portugal",
+                    details:
+                      "Ексцентричний і барвистий палац Пена є одним з найвідоміших символів Португалії. Прогуляйтеся по його яскравим кімнатам і насолоджуйтесь панорамними видами з терас.",
+                    ticketPricing: 14,
+                    bookingUrl:
+                      "https://tp.media/r?marker=58449&trs=331062&p=2074&u=https%3A%2F%2Fwww.tiqets.com%2Fen%2Fsintra-attractions-c102000%2Fpena-palace-park-ticket-p974955&campaign_id=89",
+                    howToGetTo:
+                      "Автобус 434 від залізничного вокзалу Сінтрі або таксі/Uber. Подорож займає близько 20 хвилин.",
+                  },
+                  {
+                    time: "13:30 - 14:30",
+                    activity: "Обід у Tascantiga",
+                    placeName: "Tascantiga",
+                    address:
+                      "R. Guilherme Gomes Fernandes 1, 2710-567 Sintra, Portugal",
+                    details:
+                      "Традиційний португальський ресторан, який пропонує тапас та місцеві страви в затишній атмосфері. Чудове місце для сімейного обіду за розумною ціною.",
+                    ticketPricing: 18,
+                    bookingUrl: "N/A",
+                    howToGetTo:
+                      "Пішки від центру Сінтрі, біля Національного палацу.",
+                  },
+                  {
+                    time: "15:00 - 17:30",
+                    activity: "Вивчення Quinta da Regaleira",
+                    placeName: "Quinta da Regaleira",
+                    address:
+                      "R. Barbosa du Bocage 5, 2710-567 Sintra, Portugal",
+                    details:
+                      "Містична садиба з палацом, каплицею та розкішним парком, відомим своїми гротами, озерами, колодязем посвяти та таємними проходами. Чудово підходить для пригод з дітьми.",
+                    ticketPricing: 12,
+                    bookingUrl:
+                      "https://tp.media/r?marker=58449&trs=331062&p=2074&u=https%3A%2F%2Fwww.tiqets.com%2Fen%2Fsintra-attractions-c102000%2Fquinta-da-regaleira-ticket-p974965&campaign_id=89",
+                    howToGetTo:
+                      "Коротка прогулянка пішки від центру міста або автобусом 435.",
+                  },
+                  {
+                    time: "18:30 - 20:00",
+                    activity: "Вечеря у Incomum By Luis Santos",
+                    placeName: "Incomum By Luis Santos",
+                    address: "R. da Ferraria 2, 2710-449 Sintra, Portugal",
+                    details:
+                      "Сучасний португальський ресторан з вишуканими стравами та приємною атмосферою. Пропонує гарне поєднання традиційних та інноваційних смаків, підходить для сімейної вечері.",
+                    ticketPricing: 25,
+                    bookingUrl: "N/A",
+                    howToGetTo:
+                      "Розташований у центрі Сінтрі, легко дістатися пішки.",
+                  },
+                ],
+              },
+              {
+                day: 2,
+                date: "2026-07-05",
+                activities: [
+                  {
+                    time: "09:00 - 10:00",
+                    activity: "Сніданок у пекарні Queijadas da Sapa",
+                    placeName: "Queijadas da Sapa",
+                    address: "Volta do Duche 12, 2710-631 Sintra, Portugal",
+                    details:
+                      "Насолоджуйтесь типовим португальським сніданком з випічкою (як-от Pasteis de Nata) та кавою у місцевій пекарні.",
+                    ticketPricing: 6,
+                    bookingUrl: "N/A",
+                    howToGetTo: "Пішки від вашого готелю.",
+                  },
+                  {
+                    time: "10:30 - 12:30",
+                    activity:
+                      "Дослідження історичного центру Сінтрі та Національного палацу Сінтрі",
+                    placeName: "National Palace of Sintra",
+                    address:
+                      "Largo Rainha Dona Amélia, 2710-616 Sintra, Portugal",
+                    details:
+                      "Відвідайте Національний палац Сінтрі, єдиний збережений середньовічний королівський палац у Португалії, відомий своїми великими конічними димоходами та азулежу. Прогуляйтеся по історичному центру Сінтрі, щоб купити сувеніри.",
+                    ticketPricing: 10,
+                    bookingUrl:
+                      "https://tp.media/r?marker=58449&trs=331062&p=2074&u=https%3A%2F%2Fwww.tiqets.com%2Fen%2Fsintra-attractions-c102000%2Fnational-palace-of-sintra-ticket-p974959&campaign_id=89",
+                    howToGetTo:
+                      "Розташований прямо в історичному центрі Сінтрі, легко дістатися пішки з будь-якої точки центру.",
+                  },
+                ],
+              },
+            ],
+            estimatedTotalPrice: {
+              flightPrice: 380,
+              hotelPrice: 170,
+              activitiesPrice: 36,
+              foodPrice: 95,
+              transferPrice: 10,
+              total: 691,
+            },
+          }),
+        },
+      ],
+    },
+  ],
+});
+
+export async function generateTripWithAI(DYNAMIC_PROMPT) {
+  try {
+    const response = await chat.sendMessage({
+      message: DYNAMIC_PROMPT,
+    });
+    const textResponse = response.text;
+    const cleanJson = textResponse.replace(/```json|```/g, "").trim();
+    // console.log("Trip data", cleanJson);
+    return JSON.parse(cleanJson);
+  } catch (error) {
+    console.error("Error generating trip with AI:", error);
+    throw error;
+  }
+}
