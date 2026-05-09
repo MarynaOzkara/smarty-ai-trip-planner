@@ -11,7 +11,7 @@ import {
 import { uk } from "date-fns/locale";
 import moment from "moment/moment";
 import { useDispatch } from "react-redux";
-import { addFormData } from "../../redux/slices/formDataSlice";
+import { addTripData } from "../../redux/slices/formDataSlice";
 
 export function SelectDates() {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ export function SelectDates() {
 
   useEffect(() => {
     if (startDate && endDate) {
-      dispatch(addFormData({ startDate, endDate, duration }));
+      dispatch(addTripData({ startDate, endDate, duration }));
     }
   }, [dispatch, startDate, endDate, duration]);
 

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const formDataSlice = createSlice({
-  name: "formData",
+const tripDataSlice = createSlice({
+  name: "tripData",
   initialState: {
     origin: "",
     destination: "",
@@ -13,7 +13,7 @@ const formDataSlice = createSlice({
     // Define your initial state here
   },
   reducers: {
-    addFormData: (state, action) => {
+    addTripData: (state, action) => {
       // console.log(state);
       // console.log(action);
       return { ...state, ...action.payload };
@@ -22,5 +22,5 @@ const formDataSlice = createSlice({
   },
 });
 
-export const { addFormData } = formDataSlice.actions;
-export const formDataReducer = formDataSlice.reducer;
+export const { addTripData } = tripDataSlice.actions;
+export const tripDataReducer = tripDataSlice.reducer;

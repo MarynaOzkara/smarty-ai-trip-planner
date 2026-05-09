@@ -1,8 +1,8 @@
-export const selectStartDate = (state) => state.formData.startDate;
-export const selectEndDate = (state) => state.formData.endDate;
-export const selectOrigin = (state) => state.formData.origin;
-export const selectDestination = (state) => state.formData.destination;
-export const selectDuration = (state) => state.formData.duration;
-export const selectBudget = (state) => state.formData.budget;
-export const selectTravelers = (state) => state.formData.travelers;
-export const selectFormData = (state) => state.formData;
+export const selectStartDate = (state) => state.tripData.startDate;
+export const selectEndDate = (state) => state.tripData.endDate;
+export const selectOrigin = (state) => state.tripData.origin;
+export const selectDestination = (state) => state.tripData.destination;
+export const selectDuration = (state) => state.tripData.duration;
+export const selectBudget = (state) => state.tripData.budget;
+export const selectTravelers = (state) => state.tripData.travelers;
+export const selectTripData = (state) => state.tripData;

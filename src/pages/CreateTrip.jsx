@@ -3,20 +3,25 @@ import { SelectDates } from "../components/common/SelectDates";
 import SelectPlace from "../components/common/SelectPlace";
 import SelectBudget from "../components/common/SelectBudget";
 import SelectTravelers from "../components/common/SelectTravelers";
-import { ArrowRight, CheckCircle, Loader2 } from "lucide-react";
+import { ArrowRight, CheckCircle } from "lucide-react";
 import { useSelector } from "react-redux";
-import { selectFormData } from "../redux/selectors";
+import { selectTripData } from "../redux/selectors";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+
 import Loader from "../components/common/Loader";
 import { generateTripWithAI } from "../services/AiModel";
+import LoginDialog from "../components/common/LoginDialog";
+import { useUser } from "@clerk/react";
+import { useNavigate } from "react-router-dom";
 
 const CreateTrip = () => {
-  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  const tripData = useSelector(selectFormData);
-  console.log(tripData);
+  const [openDialog, setOpenDialog] = useState(false);
+  const { user } = useUser();
+  const navigate = useNavigate();
+  const tripData = useSelector(selectTripData);
+  // console.log(tripData);
   const handleBack = () => {
     if (step > 1) {
       setStep(step - 1);
@@ -31,6 +36,10 @@ const CreateTrip = () => {
     }
   };
   const generateTrip = async () => {
+    if (!user) {
+      return setOpenDialog(true);
+    }
+    navigate("/generate-trip");
     if (
       !tripData.origin ||
       !tripData.destination ||
@@ -68,9 +77,7 @@ const CreateTrip = () => {
       setLoading(false);
     }
   };
-  if (loading) {
-    return <Loader />;
-  }
+
   return (
     <section className="bg-secondary-foreground min-h-screen py-30">
       <h2 className="text-center mb-10">Створити маршрут</h2>
@@ -203,6 +210,11 @@ const CreateTrip = () => {
           <img src="/SmartyAI.png" alt="SmartyAi" />
         </div>
       </div>
+      <LoginDialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        onLoginSuccess={generateTrip}
+      />
     </section>
   );
 };

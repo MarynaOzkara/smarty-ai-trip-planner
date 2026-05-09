@@ -177,3 +177,11 @@
 html {
   scroll-behavior: smooth;
 } 
+.cl-avatarBox {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+.cl-userButtonBox {
+  width: 2.25rem;
+  height: 2.25rem;
+}

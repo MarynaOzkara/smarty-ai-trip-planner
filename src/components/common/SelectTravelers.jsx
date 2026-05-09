@@ -1,15 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { TRAVELER_OPTIONS } from "../../../public/data";
 import { selectTravelers } from "../../redux/selectors";
-import { addFormData } from "../../redux/slices/formDataSlice";
+import { addTripData } from "../../redux/slices/formDataSlice";
 
 const SelectTravelers = () => {
   const dispatch = useDispatch();
-  const budget = useSelector(selectTravelers);
+  const travelers = useSelector(selectTravelers);
 
   const handleInputChange = (travelers) => {
     dispatch(
-      addFormData({
+      addTripData({
         travelers: travelers,
       }),
     );
@@ -20,7 +20,7 @@ const SelectTravelers = () => {
         <button
           key={opt.id}
           onClick={() => handleInputChange(opt.id)}
-          className={`p-4 cursor-pointer rounded-xl border-2 transition-all flex-center flex-col ${budget === opt.id ? "border-accent bg-secondary-foreground shadow-md scale-105" : "border-gray-200 hover:border-secondary"}`}
+          className={`p-4 cursor-pointer rounded-xl border-2 transition-all flex-center flex-col ${travelers === opt.id ? "border-accent bg-secondary-foreground shadow-md scale-105" : "border-gray-200 hover:border-secondary"}`}
         >
           <div className="text-3xl">{opt.icon}</div>
           <h5 className="font-bold">{opt.title}</h5>

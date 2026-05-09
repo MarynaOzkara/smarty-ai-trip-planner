@@ -1,9 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Menu, Plus, User2 } from "lucide-react";
+import { useClerk, UserButton, useUser } from "@clerk/react";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { user } = useUser();
+  console.log(user);
+  const { openSignIn } = useClerk();
   return (
     <header className="bg-background flex-between px-4 md:px-8 lg:px-35 w-full h-20 border-b absolute top-0 right-0 z-50">
       <Link to={"/"}>
@@ -62,9 +66,16 @@ const Header = () => {
           Mаршрут
         </Button>
         <div className="flex">
-          <Button className="cursor-pointer hover:bg-secondary w-10 h-10 rounded-full">
-            <User2 />
-          </Button>
+          {!user ? (
+            <Button
+              onClick={() => openSignIn()}
+              className="cursor-pointer hover:bg-secondary w-10 h-10 rounded-full"
+            >
+              <User2 />
+            </Button>
+          ) : (
+            <UserButton />
+          )}
         </div>
         <button className="flex md:hidden cursor-pointer hover:bg-secondary p-2 rounded-md">
           <Menu />

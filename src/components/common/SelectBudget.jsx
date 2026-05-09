@@ -1,7 +1,7 @@
 import { BUDGET_OPTIONS } from "../../../public/data";
 import { useDispatch, useSelector } from "react-redux";
 import { selectBudget } from "../../redux/selectors";
-import { addFormData } from "../../redux/slices/formDataSlice";
+import { addTripData } from "../../redux/slices/formDataSlice";
 
 const SelectBudget = () => {
   const dispatch = useDispatch();
@@ -9,7 +9,7 @@ const SelectBudget = () => {
 
   const handleInputChange = (budget) => {
     dispatch(
-      addFormData({
+      addTripData({
         budget: budget,
       }),
     );

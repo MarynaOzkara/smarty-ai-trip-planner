@@ -1,8 +1,7 @@
 import { useJsApiLoader, StandaloneSearchBox } from "@react-google-maps/api";
 import { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addFormData } from "../../redux/slices/formDataSlice";
-import { selectFormData } from "../../redux/selectors";
+import { useDispatch } from "react-redux";
+import { addTripData } from "../../redux/slices/formDataSlice";
 
 const placesKey = import.meta.env.VITE_GOOGLE_PLACES_API_KEY;
 
@@ -16,13 +15,12 @@ const SelectPlace = ({ name }) => {
     language: "uk",
   });
   const [place, setPlace] = useState();
-  const formData = useSelector(selectFormData);
   const onPlaceChanged = (name) => {
     // console.log(name);
     const place = inputRef.current.getPlaces();
     const city = place[0].formatted_address;
     setPlace(city);
-    dispatch(addFormData({ [name]: city }));
+    dispatch(addTripData({ [name]: city }));
   };
 
   return (
