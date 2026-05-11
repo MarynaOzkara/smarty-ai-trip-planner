@@ -6,7 +6,7 @@ import { useClerk, UserButton, useUser } from "@clerk/react";
 const Header = () => {
   const navigate = useNavigate();
   const { user } = useUser();
-  console.log(user);
+  // console.log(user);
   const { openSignIn } = useClerk();
   return (
     <header className="bg-background flex-between px-4 md:px-8 lg:px-35 w-full h-20 border-b absolute top-0 right-0 z-50">

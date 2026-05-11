@@ -2,7 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
 const chat = ai.chats.create({
-  model: "gemini-2.5-flash",
+  model: "gemini-3.1-flash-lite",
   history: [
     {
       role: "user",

@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import CreateTrip from "./pages/CreateTrip";
 import { Toaster } from "sonner";
 import GenerateTrip from "./pages/GenerateTrip";
+import TripDetails from "./pages/TripDetails";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/create-trip" element={<CreateTrip />} />
         <Route path="/generate-trip" element={<GenerateTrip />} />
+        <Route path="/trip/:tripId" element={<TripDetails />} />
       </Routes>
     </>
   );
