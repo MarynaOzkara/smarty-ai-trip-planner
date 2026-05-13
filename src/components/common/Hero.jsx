@@ -40,7 +40,7 @@ const Hero = () => {
               onClick={() => navigate("/create-trip")}
               className="py-6 px-10 cursor-pointer hover:bg-secondary text-xl"
             >
-              Створити маршрут
+              Створити подорож
             </Button>
             <Button
               variant="outline"

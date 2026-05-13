@@ -63,7 +63,7 @@ const Header = () => {
           className="cursor-pointer px-5 text-sm"
         >
           <Plus className="w-4 h-4" />
-          Mаршрут
+          Подорож
         </Button>
         <div className="flex">
           {!user ? (

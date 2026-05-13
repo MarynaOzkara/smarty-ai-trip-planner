@@ -54,7 +54,7 @@ const CreateTrip = () => {
 
   return (
     <section className="bg-secondary-foreground min-h-screen py-30">
-      <h2 className="text-center mb-10">Створити маршрут</h2>
+      <h2 className="text-center mb-10">Створити подорож</h2>
       <div className="border max-padd-container flex flex-col md:flex-row gap-10">
         {/* Container */}
         <div className="w-full max-w-[50%] min-h-[85vh] sm:min-h-[80vh] bg-background rounded-3xl shadow-xl border border-gray-100 overflow-hidden flex flex-col">

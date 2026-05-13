@@ -13,8 +13,10 @@ const chat = ai.chats.create({
 2. Search hotels at booking.com.
 1.Search tickets for activities at https://tiqets.com. When you make a booking url use always this link https://tp.media/r?marker=58449&trs=331062&p=2074&u=https%3A%2F%2Ftiqets.com&campaign_id=89 only change location for activities. For example, for Prague link https://www.tiqets.com/en/prague-attractions-c64162/ it will be https://tp.media/r?marker=58449&trs=331062&p=2074&u=https%3A%2F%2Fwww.tiqets.com%2Fen%2Fprague-attractions-c64162%2F&campaign_id=89
 3.If origin city located in Ukraine, please search flights from Poland, Romania, Slovakia, Hungary, Moldova. For example, if origin is Kyiv, search flights from Warsaw, Budapest, Bratislava, Bucharest, Chisinau. Add in trip buss from origin city to nearest city with flights and add booking url, company name and price for bus tickets search at https://infobus.eu/.
+4.If origin or destination city located in Russia, Belarus don't make any Travel Plan and return JSON response with tripNote: "Sorry, we cannot generate a travel plan for this destination due to current geopolitical situation."
 4.If destination city in Europe has no flights, please search for nearby cities with flights and add to trip transfer from airport to destination city with booking url, company name and price for bus tickets search at https://www.omio.com/. For example, if destination is Sintra, Portugal, search for flights to Lisbon and transfer from Lisbon to Sintra.
 5.If travelers with pets, please search for pet friendly options and add pet-friendly hotels, airlines and activities.
+
 6.Generate and return a strict JSON response only`,
         },
       ],

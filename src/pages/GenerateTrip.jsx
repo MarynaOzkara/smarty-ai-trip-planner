@@ -31,14 +31,15 @@ const GenerateTrip = () => {
       setLoading(true);
       try {
         const response = await generateTripWithAI(DYNAMIC_PROMPT);
-        saveToDB(response);
-        console.log("AI response:", response);
+        await saveToDB(response);
+        // console.log("AI response:", response);
       } catch (error) {
-        console.error("Error generating trip:", error);
+        setLoading(false);
+        // console.error("Error generating trip:", error);
         toast.error(
           error.message?.includes("429")
             ? "Забагато запитів до AI. Спробуйте ще раз через хвилину."
-            : "Сталася помилка при генерації маршруту. Спробуйте ще раз.",
+            : "Сталася помилка при генерації подорожі. Спробуйте ще раз.",
         );
         setLoading(false);
       }
@@ -54,12 +55,12 @@ const GenerateTrip = () => {
           id: docId,
         });
         setLoading(false);
-        toast.success("Маршрут успішно створено!");
+        toast.success("Подорож успішно створено!");
         navigate(`/trip/${docId}`);
       } catch (error) {
         console.error("Error saving trip to Firestore:", error);
         setLoading(false);
-        toast.error("Сталася помилка при збереженні маршруту.");
+        toast.error("Сталася помилка при збереженні подорожі.");
       }
     };
   }, [DYNAMIC_PROMPT]);
