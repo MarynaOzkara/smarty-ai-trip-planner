@@ -63,13 +63,13 @@
     --secondary: oklch(0.7288 0.161 29.65);
     --secondary-foreground: oklch(0.9759 0.0076 61.45);
     --muted: oklch(0.967 0.0029 264.54);
-    --muted-foreground: oklch(0.5483 0.0263 266.73);
+    --muted-foreground: oklch(0.9121 0.0565 60.09);
     --accent: oklch(0.6812 0.1653 29.11);
     --accent-foreground: oklch(1 0 0);
     --destructive: oklch(0.577 0.245 27.325);
     --border: oklch(0.9276 0.0058 264.53);
     --input: oklch(0.9276 0.0058 264.53);
-    --ring: oklch(0.7009 0.201198 44.7666);
+    --ring: oklch(0.6812 0.1653 29.11);
     --chart-1: oklch(0.87 0 0);
     --chart-2: oklch(0.556 0 0);
     --chart-3: oklch(0.439 0 0);
@@ -162,7 +162,7 @@
         @apply text-2xl md:text-3xl font-bold
       }
       h4{
-        @apply text-xl md:text-2xl font-bold
+        @apply text-lg md:text-xl font-medium
       }
       h5{
         @apply text-lg font-[montserrat] font-normal text-gray-600 hover:text-accent transition-colors duration-300
@@ -173,10 +173,15 @@
       p{
         @apply text-lg font-[montserrat] text-card-foreground
       } 
+    
 }
 html {
   scroll-behavior: smooth;
+  
 } 
+a{
+  text-decoration: none;
+}
 .cl-avatarBox {
   width: 2.25rem;
   height: 2.25rem;

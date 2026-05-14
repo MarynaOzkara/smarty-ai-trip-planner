@@ -63,8 +63,7 @@ const TripDetails = () => {
               <div className="lg:col-span-2 space-y-6">
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-2 md:p-6">
                   <h2 className="flex items-baseline gap-2 text-gray-600 text-xl md:text-3xl mb-4">
-                    <Calendar className="h-5 w-5 md:w-7 md:h-7 text-accent" />{" "}
-                    Ваш план подорожі на {trip?.userSelection?.duration} дні
+                    План подорожі на {trip?.userSelection?.duration} дні
                   </h2>
                   <Itinerary trip={trip} />
                 </div>

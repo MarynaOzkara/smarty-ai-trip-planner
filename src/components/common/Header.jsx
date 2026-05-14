@@ -56,15 +56,27 @@ const Header = () => {
         </ul>
       </nav>
       <div className="flex-center gap-2">
-        <Button
-          onClick={() => navigate("/create-trip")}
-          variant="outline"
-          size="lg"
-          className="cursor-pointer px-5 text-sm"
-        >
-          <Plus className="w-4 h-4" />
-          Подорож
-        </Button>
+        {!user ? (
+          <Button
+            onClick={() => navigate("/create-trip")}
+            variant="outline"
+            size="lg"
+            className="cursor-pointer px-5 text-sm"
+          >
+            <Plus className="w-4 h-4" />
+            Подорож
+          </Button>
+        ) : (
+          <Button
+            onClick={() => navigate("/my-trips")}
+            variant="outline"
+            size="lg"
+            className="cursor-pointer px-5 text-sm"
+          >
+            Мої Подорожі
+          </Button>
+        )}
+
         <div className="flex">
           {!user ? (
             <Button
