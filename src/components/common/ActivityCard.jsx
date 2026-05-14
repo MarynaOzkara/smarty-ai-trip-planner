@@ -12,7 +12,7 @@ import { FaWalking } from "react-icons/fa";
 const ActivityCard = ({ activity }) => {
   const url = `https://google.com/maps/search/?api=1&query=${activity?.placeName}`;
   //   console.log(url);
-  console.log(activity);
+  // console.log(activity);
   return (
     <TimelineItem className="group-data-[orientation=vertical]/timeline:ms-10">
       <TimelineHeader>
@@ -53,7 +53,7 @@ const ActivityCard = ({ activity }) => {
                   <Map width={15} height={15} />
                   {activity?.address}
                 </a>
-                <p className="text-[16px]">{activity?.details}</p>
+                <p className="text-[16px] mt-1">{activity?.details}</p>
                 <div className="flex flex-col sm:flex-row items-center sm:justify-between">
                   <p className="text-gray-600 mt-1 flex items-center gap-2">
                     <Ticket /> <b>{activity?.ticketPricing} €</b>

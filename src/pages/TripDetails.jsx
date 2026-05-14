@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { FaArrowLeft } from "react-icons/fa";
 import { Calendar } from "lucide-react";
 import Itinerary from "../components/common/Itinerary";
+import Hotels from "../components/common/Hotels";
 
 const TripDetails = () => {
   const { tripId } = useParams();
@@ -69,6 +70,9 @@ const TripDetails = () => {
                 </div>
               </div>
               {/* Right Column Flight, Hotels, Budget */}
+              <div className="space-y-6">
+                <Hotels trip={trip} />
+              </div>
             </div>
           </div>
         </div>
