@@ -4,9 +4,13 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
 import { toast } from "sonner";
 import { FaArrowLeft } from "react-icons/fa";
-import { Calendar } from "lucide-react";
 import Itinerary from "../components/common/Itinerary";
 import Hotels from "../components/common/Hotels";
+import { MdHotel } from "react-icons/md";
+import { FaWallet } from "react-icons/fa";
+import TripBudget from "../components/common/TripBadget";
+import { FaPlaneDeparture } from "react-icons/fa";
+import Transport from "../components/common/Transport";
 
 const TripDetails = () => {
   const { tripId } = useParams();
@@ -32,6 +36,7 @@ const TripDetails = () => {
       fetchTripData();
     }
   }, [tripId]);
+
   return (
     trip && (
       <section className="bg-secondary-foreground min-h-screen">
@@ -63,15 +68,40 @@ const TripDetails = () => {
               {/* Left Column Itinerary */}
               <div className="lg:col-span-2 space-y-6">
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-2 md:p-6">
-                  <h2 className="flex items-baseline gap-2 text-gray-600 text-xl md:text-3xl mb-4">
+                  {/* <h2 className="flex items-baseline gap-2 text-gray-600 text-xl md:text-3xl mb-4">
                     План подорожі на {trip?.userSelection?.duration} дні
-                  </h2>
+                  </h2> */}
+                  <div className="flex flex-wrap gap-4 mb-6">
+                    <div className="flex items-center gap-2">
+                      <h3>
+                        План подорожі на {trip?.userSelection?.duration} дні
+                      </h3>
+                    </div>
+                  </div>
                   <Itinerary trip={trip} />
                 </div>
               </div>
               {/* Right Column Flight, Hotels, Budget */}
               <div className="space-y-6">
-                <Hotels trip={trip} />
+                <div>
+                  <h3 className="text-accent mb-2 flex items-center gap-2">
+                    <FaPlaneDeparture className="w-7 h-7" /> Транспорт
+                  </h3>
+                  <Transport trip={trip} />
+                </div>
+                <div>
+                  <h3 className="text-accent mb-2 flex items-center gap-2">
+                    <MdHotel className="w-7 h-7" /> Проживання
+                  </h3>
+                  <Hotels trip={trip} />
+                </div>
+                <div>
+                  <h3 className="text-accent mb-2 flex items-center gap-2">
+                    <FaWallet className="w-6 h-6" />
+                    Бюджет подорожі
+                  </h3>
+                  <TripBudget trip={trip} />
+                </div>
               </div>
             </div>
           </div>

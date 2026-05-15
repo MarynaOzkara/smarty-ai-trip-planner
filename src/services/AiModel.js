@@ -42,7 +42,7 @@ const chat = ai.chats.create({
               company: "CP - Comboios de Portugal",
               price: 5.0,
               bookingUrl:
-                "https://www.omio.com/search-results/train/lisbon/sintra/2026-07-03",
+                "https://www.omio.com",
               details:
                 "З аеропорту Лісабона дістаньтеся метро до станції Oriente (червона лінія), а звідти поїздом до Сінтрі.",
             },
@@ -54,8 +54,7 @@ const chat = ai.chats.create({
                 rating: 9.1,
                 description:
                   "Затишний пансіонат типу «ліжко та сніданок» з чарівним садом, розташований недалеко від основних пам'яток. Пропонує комфортні номери в тихому районі, ідеально підходить для сімейного відпочинку.",
-                bookingUrl:
-                  "https://www.booking.com/hotel/pt/sintra-green-chalet.en-gb.html?aid=356980&label=gog235jc-1DCAsoQ0IKc2ludHJhLWdyZWVuSAhYBGgOQjNYjAEbmAEBmAENuAEHyAEM2AEB6AEB-AELiAIBqAIDuALM9pD1BsACAdICJDIyNGJlY2YyLTFhMGItNDZmYi05YmM0LTA5Y2ZkMDc0MWM5MWEwLjFjNzE2N2E0NzQzZA",
+                bookingUrl: "https://www.booking.com",
                 petFriendly: false,
               },
               {
@@ -66,8 +65,7 @@ const chat = ai.chats.create({
                 rating: 8.7,
                 description:
                   "Цей хостел розташований у центрі Сінтрі, пропонує приватні та спільні номери. Чудовий вибір для бюджетних мандрівників та сімей, які шукають зручне розташування та привітну атмосферу.",
-                bookingUrl:
-                  "https://www.booking.com/hotel/pt/casa-azul-sintra.en-gb.html?aid=356980&label=gog235jc-1DCAsoQ0IKc2ludHJhLWdyZWVuSAhYBGgOQjNYjAEbmAEBmAENuAEHyAEM2AEB6AEB-AELiAIBqAIDuALM9pD1BsACAdICJDIyNGJlY2YyLTFhMGItNDZmYi05YmM0LTA5Y2ZkMDc0MWM5MWEwLjFjNzE2N2E0NzQzZA",
+                bookingUrl: "https://www.booking.com",
                 petFriendly: false,
               },
               {
@@ -79,7 +77,7 @@ const chat = ai.chats.create({
                 description:
                   "Простий, але комфортний готель, розташований трохи далі від центру, але з хорошим доступом до транспорту. Ідеально підходить для сімей, яким потрібне тихе місце для відпочинку за розумну ціну.",
                 bookingUrl:
-                  "https://www.booking.com/hotel/pt/nova-sintra.en-gb.html?aid=356980&label=gog235jc-1DCAsoQ0IKc2ludHJhLWdyZWVuSAhYBGgOQjNYjAEbmAEBmAENuAEHyAEM2AEB6AEB-AELiAIBqAIDuALM9pD1BsACAdICJDIyNGJlY2YyLTFhMGItNDZmYi05YmM0LTA5Y2ZkMDc0MWM5MWEwLjFjNzE2N2E0NzQzZA",
+                  "https://www.booking.com",
                 petFriendly: false,
               },
             ],
@@ -96,7 +94,7 @@ const chat = ai.chats.create({
                     details:
                       "Розпочніть день із ситного сніданку в затишному кафе, розташованому біля залізничного вокзалу Сінтрі. Пропонує смачні випічки, каву та легкі страви.",
                     ticketPricing: 8,
-                    bookingUrl: "N/A",
+                    bookingUrl: "",
                     howToGetTo:
                       "Пішки від залізничного вокзалу Сінтрі або центру міста.",
                   },
@@ -122,7 +120,7 @@ const chat = ai.chats.create({
                     details:
                       "Традиційний португальський ресторан, який пропонує тапас та місцеві страви в затишній атмосфері. Чудове місце для сімейного обіду за розумною ціною.",
                     ticketPricing: 18,
-                    bookingUrl: "N/A",
+                    bookingUrl: "",
                     howToGetTo:
                       "Пішки від центру Сінтрі, біля Національного палацу.",
                   },
@@ -148,7 +146,7 @@ const chat = ai.chats.create({
                     details:
                       "Сучасний португальський ресторан з вишуканими стравами та приємною атмосферою. Пропонує гарне поєднання традиційних та інноваційних смаків, підходить для сімейної вечері.",
                     ticketPricing: 25,
-                    bookingUrl: "N/A",
+                    bookingUrl: "",
                     howToGetTo:
                       "Розташований у центрі Сінтрі, легко дістатися пішки.",
                   },
@@ -166,7 +164,7 @@ const chat = ai.chats.create({
                     details:
                       "Насолоджуйтесь типовим португальським сніданком з випічкою (як-от Pasteis de Nata) та кавою у місцевій пекарні.",
                     ticketPricing: 6,
-                    bookingUrl: "N/A",
+                    bookingUrl: "",
                     howToGetTo: "Пішки від вашого готелю.",
                   },
                   {

@@ -7,11 +7,15 @@ import {
 import ActivityCard from "./ActivityCard";
 import { Timeline } from "../reui/timeline";
 import { Calendar } from "lucide-react";
+import moment from "moment/moment";
+import "moment/locale/uk";
+
+moment.locale("uk");
 
 const Itinerary = ({ trip }) => {
   return (
     <div>
-      <Accordion type="single" collapsible defaultValue="item-1">
+      <Accordion type="single" defaultValue="item-1">
         {trip?.tripData?.itinerary?.map((item, index) => (
           <AccordionItem value={`item-${index + 1}`} key={index}>
             <AccordionTrigger className="cursor-pointer">
@@ -23,7 +27,7 @@ const Itinerary = ({ trip }) => {
               <Timeline defaultValue={1} className="mt-4 md:mt-6 w-full">
                 <h5 className="text-accent font-medium mb-4 md:mb-6 flex items-center gap-2">
                   <Calendar className="h-5 w-5" />
-                  {item?.date}
+                  {moment(item?.date).format("D MMMM")}
                 </h5>
 
                 {item?.activities.map((activity, ind) => (

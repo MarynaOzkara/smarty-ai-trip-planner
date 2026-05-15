@@ -10,7 +10,7 @@ import {
 import { FaWalking } from "react-icons/fa";
 
 const ActivityCard = ({ activity }) => {
-  const url = `https://google.com/maps/search/?api=1&query=${activity?.placeName}`;
+  const url = `https://google.com/maps/search/?api=1&query=${activity?.placeName},${activity?.address}`;
   //   console.log(url);
   // console.log(activity);
   return (
@@ -21,8 +21,8 @@ const ActivityCard = ({ activity }) => {
           {activity?.time}
         </TimelineTitle>
         <div className="mt-1 flex items-start gap-1">
-          <div className="w-6 h-6 rounded-full bg-muted-foreground flex-center">
-            <FaWalking className="w-4 h-4" />
+          <div className="w-7 h-7 rounded-full bg-secondary-foreground flex-center">
+            <FaWalking className="w-4 h-4 text-accent" />
           </div>
 
           <p className="text-sm  text-gray-600">{activity?.howToGetTo}</p>

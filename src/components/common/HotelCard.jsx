@@ -1,7 +1,7 @@
 import { Map, Star } from "lucide-react";
 
 const HotelCard = ({ hotel }) => {
-  console.log(hotel);
+  // console.log(hotel);
   return (
     hotel && (
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -20,7 +20,7 @@ const HotelCard = ({ hotel }) => {
           <h4 className="text-accent line-clamp-1">{hotel?.hotelName}</h4>
           <a
             target="_blank"
-            href={`https://google.com/maps/search/?api=1&query=${hotel?.address}`}
+            href={`https://google.com/maps/search/?api=1&query=${hotel?.hotelName},${hotel?.address}`}
             className="flex gap-1 items-start text-sm text-gray-500"
           >
             <Map width={15} height={15} /> {hotel?.address}
