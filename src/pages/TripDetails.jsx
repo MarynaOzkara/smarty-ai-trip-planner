@@ -11,12 +11,14 @@ import { FaWallet } from "react-icons/fa";
 import TripBudget from "../components/common/TripBadget";
 import { FaPlaneDeparture } from "react-icons/fa";
 import Transport from "../components/common/Transport";
+import { getPlacePhoto } from "../services/placePhotoApi";
 
 const TripDetails = () => {
   const { tripId } = useParams();
   const [trip, setTrip] = useState([]);
+  const [placePhoto, setPlacePhoto] = useState("");
   const navigate = useNavigate();
-  console.log("trip", trip);
+  // console.log("trip", trip);
   const fetchTripData = async () => {
     const docRef = doc(db, "trips", tripId);
     const docSnap = await getDoc(docRef);
@@ -37,13 +39,21 @@ const TripDetails = () => {
     }
   }, [tripId]);
 
+  useEffect(() => {
+    if (!trip?.userSelection?.destination) return;
+    const loadPhoto = async () => {
+      const photoUrl = await getPlacePhoto(trip?.userSelection?.destination);
+      setPlacePhoto(photoUrl);
+    };
+    loadPhoto();
+  }, [trip]);
   return (
     trip && (
       <section className="bg-secondary-foreground min-h-screen">
         <div>
           <div className="relative h-98 md:h-111 bg-gray-900">
             <img
-              src={"/private.png"}
+              src={placePhoto ? placePhoto : "/template.jpg"}
               alt={trip?.userSelection?.destination}
               className="w-full h-full object-cover opacity-80"
             />

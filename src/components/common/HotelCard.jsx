@@ -1,13 +1,25 @@
 import { Map, Star } from "lucide-react";
+import { useEffect, useState } from "react";
+import { getPlacePhoto } from "../../services/placePhotoApi";
 
 const HotelCard = ({ hotel }) => {
+  const [hotelPhoto, setHotelPhoto] = useState("");
+
+  useEffect(() => {
+    if (!hotel?.hotelName) return;
+    const loadPhoto = async () => {
+      const photoUrl = await getPlacePhoto(hotel?.hotelName);
+      setHotelPhoto(photoUrl);
+    };
+    loadPhoto();
+  }, [hotel]);
   // console.log(hotel);
   return (
     hotel && (
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="h-50 bg-gray-200 relative">
           <img
-            src={"/private.png"}
+            src={hotelPhoto ? hotelPhoto : "/template.jpg"}
             alt={hotel?.hotelName}
             className="h-full w-full object-cover"
           />

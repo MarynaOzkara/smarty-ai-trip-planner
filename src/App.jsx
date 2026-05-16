@@ -5,6 +5,7 @@ import CreateTrip from "./pages/CreateTrip";
 import { Toaster } from "sonner";
 import GenerateTrip from "./pages/GenerateTrip";
 import TripDetails from "./pages/TripDetails";
+import MyTrips from "./pages/MyTrips";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/create-trip" element={<CreateTrip />} />
         <Route path="/generate-trip" element={<GenerateTrip />} />
         <Route path="/trip/:tripId" element={<TripDetails />} />
+        <Route path="/my-trips" element={<MyTrips />} />
       </Routes>
     </>
   );

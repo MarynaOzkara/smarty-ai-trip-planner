@@ -8,10 +8,21 @@ import {
   TimelineTitle,
 } from "../reui/timeline";
 import { FaWalking } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { getPlacePhoto } from "../../services/placePhotoApi";
 
 const ActivityCard = ({ activity }) => {
+  const [activityPhoto, setActivityPhoto] = useState("");
   const url = `https://google.com/maps/search/?api=1&query=${activity?.placeName},${activity?.address}`;
-  //   console.log(url);
+  useEffect(() => {
+    if (!activity?.placeName) return;
+    const loadPhoto = async () => {
+      const photoUrl = await getPlacePhoto(activity?.placeName);
+      setActivityPhoto(photoUrl);
+    };
+    loadPhoto();
+  }, [activity]);
+
   // console.log(activity);
   return (
     <TimelineItem className="group-data-[orientation=vertical]/timeline:ms-10">
@@ -34,11 +45,11 @@ const ActivityCard = ({ activity }) => {
       </TimelineHeader>
       <TimelineContent>
         <div className="block mt-2 border border-gray-200 rounded-lg hover:shadow-2xs focus: outline-hidden overflow-hidden">
-          <div className="relative flex flex-col sm:flex-row overflow-hidden sm:h-50">
+          <div className="relative flex flex-col sm:flex-row overflow-hidden sm:h-60">
             <img
-              src={`/private.png`}
+              src={activityPhoto ? activityPhoto : `/template.jpg`}
               alt={activity?.placeName}
-              className="h-50 object-cover inset-0 w-full sm:w-60"
+              className="h-50 w-full md:h-full md:w-60 object-cover inset-0"
             />
             <div className="p-4">
               <div className="flex flex-col min-h-24">
