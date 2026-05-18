@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SelectDates } from "../components/common/SelectDates";
 import SelectPlace from "../components/common/SelectPlace";
 import SelectBudget from "../components/common/SelectBudget";
@@ -18,7 +18,8 @@ const CreateTrip = () => {
   const navigate = useNavigate();
 
   const tripData = useSelector(selectTripData);
-  // console.log(tripData);
+
+  console.log(tripData);
   const handleBack = () => {
     if (step > 1) {
       setStep(step - 1);

@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
 import ActivityCard from "./ActivityCard";
 import { Timeline } from "../reui/timeline";
 import { Calendar } from "lucide-react";
@@ -15,7 +16,7 @@ moment.locale("uk");
 const Itinerary = ({ trip }) => {
   return (
     <div>
-      <Accordion type="single" collapsible defaultValue="item-1">
+      <Accordion type="multiple" defaultValue="item-1">
         {trip?.tripData?.itinerary?.map((item, index) => (
           <AccordionItem value={`item-${index + 1}`} key={index}>
             <AccordionTrigger className="cursor-pointer">

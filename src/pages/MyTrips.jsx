@@ -1,4 +1,11 @@
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
 import { useUser } from "@clerk/react";
 import { useEffect, useState } from "react";
@@ -14,7 +21,7 @@ const MyTrips = () => {
 
   const getUserTrips = async () => {
     const userEmail = user?.primaryEmailAddress?.emailAddress;
-    console.log(userEmail);
+    // console.log(userEmail);
     const q = query(
       collection(db, "trips"),
       where("userEmail", "==", userEmail),
@@ -38,6 +45,11 @@ const MyTrips = () => {
     user && getUserTrips();
   }, [user]);
 
+  const deleteTrip = async (id) => {
+    // console.log(id);
+    await deleteDoc(doc(db, "trips", id));
+    getUserTrips();
+  };
   return (
     <div className="bg-secondary-foreground min-h-screen">
       <div className="max-padd-container py-30">
@@ -50,7 +62,7 @@ const MyTrips = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {userTrips?.length > 0
             ? userTrips?.map((trip, index) => (
-                <MyTripCard key={index} trip={trip} />
+                <MyTripCard key={index} trip={trip} deleteTrip={deleteTrip} />
               ))
             : [1, 2, 3, 4].map((index) => (
                 <div key={index} className="flex flex-col space-y-3">

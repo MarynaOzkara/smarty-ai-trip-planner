@@ -19,8 +19,17 @@ const tripDataSlice = createSlice({
       return { ...state, ...action.payload };
     },
     // Define your reducers here
+    resetTripData: (state) => {
+      state.origin = "";
+      state.destination = "";
+      state.budget = "";
+      state.duration = "";
+      state.startDate = "";
+      state.endDate = "";
+      state.travelers = "";
+    },
   },
 });
 
-export const { addTripData } = tripDataSlice.actions;
+export const { addTripData, resetTripData } = tripDataSlice.actions;
 export const tripDataReducer = tripDataSlice.reducer;

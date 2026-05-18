@@ -1,6 +1,7 @@
 import { Map, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getPlacePhoto } from "../../services/placePhotoApi";
+import { FaPaw } from "react-icons/fa";
 
 const HotelCard = ({ hotel }) => {
   const [hotelPhoto, setHotelPhoto] = useState("");
@@ -23,9 +24,17 @@ const HotelCard = ({ hotel }) => {
             alt={hotel?.hotelName}
             className="h-full w-full object-cover"
           />
-          <div className="absolute top-3 right-3 bg-white px-2 py-1 rounded-md shadow-sm text-xs font-bold flex items-center">
-            <Star className="w-3 h-3 text-yellow-400 mr-1 fill-yellow-400" />
-            {hotel?.rating}
+          <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent" />
+          <div className="absolute top-3 right-3 flex items-center gap-2">
+            {hotel?.petFriendly === true && (
+              <div className="bg-white px-2 py-1 rounded-md shadow-sm">
+                <FaPaw className="w-4 h-4 text-accent" />
+              </div>
+            )}
+            <div className="bg-white px-2 py-1 rounded-md shadow-sm text-xs font-bold flex items-center">
+              <Star className="w-3 h-3 text-yellow-400 mr-1 fill-yellow-400" />
+              {hotel?.rating}
+            </div>
           </div>
         </div>
         <div className="p-5">

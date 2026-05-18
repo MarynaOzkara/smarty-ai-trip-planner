@@ -1,12 +1,16 @@
 import Hero from "../components/common/Hero";
 import HowItWork from "../components/common/HowItWork";
+import TripExample from "../components/common/TripExample";
+import WhyChooseUs from "../components/common/WhyChooseUs";
 
 const Home = () => {
   return (
-    <div>
+    <main>
       <Hero />
       <HowItWork />
-    </div>
+      <TripExample />
+      <WhyChooseUs />
+    </main>
   );
 };
 

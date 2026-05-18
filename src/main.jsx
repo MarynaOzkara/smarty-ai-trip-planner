@@ -11,15 +11,13 @@ import { PersistGate } from "redux-persist/integration/react";
 const publishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <ClerkProvider publishableKey={publishableKey}>
-            <App />
-          </ClerkProvider>
-        </PersistGate>
-      </Provider>
-    </BrowserRouter>
-  </StrictMode>,
+  <BrowserRouter>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ClerkProvider publishableKey={publishableKey}>
+          <App />
+        </ClerkProvider>
+      </PersistGate>
+    </Provider>
+  </BrowserRouter>,
 );

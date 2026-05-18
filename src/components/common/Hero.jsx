@@ -42,13 +42,15 @@ const Hero = () => {
             >
               Створити подорож
             </Button>
-            <Button
-              variant="outline"
-              className="py-6 px-10 cursor-pointer text-xl flex items-center gap-4"
-            >
-              Як це працює
-              <Play className="h-10 w-10" />
-            </Button>
+            <a href="#how-it-work">
+              <Button
+                variant="outline"
+                className="py-6 px-10 cursor-pointer text-xl flex items-center gap-4"
+              >
+                Як це працює
+                <Play className="h-10 w-10" />
+              </Button>
+            </a>
           </div>
         </div>
         <div className="border relative grow max-w-2xl">

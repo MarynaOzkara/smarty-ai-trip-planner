@@ -18,7 +18,7 @@ const TripDetails = () => {
   const [trip, setTrip] = useState([]);
   const [placePhoto, setPlacePhoto] = useState("");
   const navigate = useNavigate();
-  // console.log("trip", trip);
+  console.log("trip", trip);
   const fetchTripData = async () => {
     const docRef = doc(db, "trips", tripId);
     const docSnap = await getDoc(docRef);
@@ -66,7 +66,9 @@ const TripDetails = () => {
                 <FaArrowLeft /> Створити іншу подорож
               </button>
               <div className="max-w-2xl p-5 bg-white/20 backdrop-blur-sm rounded-xl">
-                <h1 className="mb-2">{trip?.userSelection?.destination}</h1>
+                <h1 className="mb-2 line-clamp-2">
+                  {trip?.userSelection?.destination}
+                </h1>
                 <p className="text-sm md:text-lg text-gray-300">
                   {trip?.tripData?.tripNote?.split(".")[0]}
                 </p>
@@ -78,9 +80,6 @@ const TripDetails = () => {
               {/* Left Column Itinerary */}
               <div className="lg:col-span-2 space-y-6">
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-2 md:p-6">
-                  {/* <h2 className="flex items-baseline gap-2 text-gray-600 text-xl md:text-3xl mb-4">
-                    План подорожі на {trip?.userSelection?.duration} дні
-                  </h2> */}
                   <div className="flex flex-wrap gap-4 mb-6">
                     <div className="flex items-center gap-2">
                       <h3>

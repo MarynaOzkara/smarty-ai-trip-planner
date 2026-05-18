@@ -6,6 +6,8 @@ import { Toaster } from "sonner";
 import GenerateTrip from "./pages/GenerateTrip";
 import TripDetails from "./pages/TripDetails";
 import MyTrips from "./pages/MyTrips";
+import PageNotFound from "./pages/PageNotFound";
+import Footer from "./components/common/Footer";
 
 const App = () => {
   return (
@@ -13,12 +15,14 @@ const App = () => {
       <Toaster />
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route index path="/" element={<Home />} />
         <Route path="/create-trip" element={<CreateTrip />} />
         <Route path="/generate-trip" element={<GenerateTrip />} />
         <Route path="/trip/:tripId" element={<TripDetails />} />
         <Route path="/my-trips" element={<MyTrips />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
+      <Footer />
     </>
   );
 };
