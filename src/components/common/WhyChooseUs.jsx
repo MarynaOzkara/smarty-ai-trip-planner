@@ -32,16 +32,16 @@ const CHOOSE_OPTIONS = [
 
 const WhyChooseUs = () => {
   return (
-    <section className="border py-20 bg-background">
+    <section className="border py-10 md:py-20 bg-background">
       <div className="max-padd-container border">
         <h2 className="text-center">
           Чому обирають <span className="text-accent">Smarty?</span>
         </h2>
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 ">
+        <div className="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 ">
           {CHOOSE_OPTIONS.map((item) => (
             <div
               key={item.id}
-              className="flex flex-col items-center gap-4 p-6 md:flex-row rounded-2xl cursor-pointer hover:scale-105 shadow-sm"
+              className="flex flex-col items-center gap-4 p-6 md:flex-row rounded-2xl hover:scale-105 shadow-sm"
             >
               <div>{item.icon}</div>
               <div>

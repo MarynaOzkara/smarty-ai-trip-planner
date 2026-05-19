@@ -1,97 +1,144 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Menu, Plus, User2 } from "lucide-react";
+import { AiOutlineClose } from "react-icons/ai";
 import { useClerk, UserButton, useUser } from "@clerk/react";
+import { useState } from "react";
 
 const Header = () => {
   const navigate = useNavigate();
   const { user } = useUser();
+  const [isOpen, setIsOpen] = useState(false);
   // console.log(user);
   const { openSignIn } = useClerk();
   return (
-    <header className="bg-background flex-between px-4 md:px-8 lg:px-35 w-full h-20 border-b absolute top-0 right-0 z-50">
-      <Link to={"/"}>
-        <div className=" flex-center gap-4.5">
-          <img
-            src="/logo.svg"
-            alt="Smarty Travels"
-            className="w-[38px] h-[38px]"
-          />
-          <h6 className="hidden md:block">Smarty Travels</h6>
-        </div>
-      </Link>
-      {/* Navigation */}
-      <nav className="hidden md:block">
-        <ul className="flex-center gap-6">
-          <li>
-            <Link to={"/"}>
-              <h5>Головна</h5>
-            </Link>
-          </li>
-          <li>
-            <Link to={"https://smarty-travels.com/pro-nas/"}>
-              <h5>Про Hас</h5>
-            </Link>
-          </li>
-          <li>
-            <Link to={"https://smarty-travels.com/turystychni-servisy/"}>
-              <h5>Туристичні Сервіси</h5>
-            </Link>
-          </li>
-          <li>
-            <Link to={"https://smarty-travels.com/napryamki/"}>
-              <h5>Напрямки</h5>
-            </Link>
-          </li>
-          <li>
-            <Link to={"https://smarty-travels.com/turystychni-porady/"}>
-              <h5>Туристичні Поради</h5>
-            </Link>
-          </li>
-          <li>
-            <Link to={"https://smarty-travels.com/blog/"}>
-              <h5>Блог</h5>
-            </Link>
-          </li>
-        </ul>
-      </nav>
-      <div className="flex-center gap-2">
-        {!user ? (
-          <Button
-            onClick={() => navigate("/create-trip")}
-            variant="outline"
-            size="lg"
-            className="cursor-pointer px-5 text-sm"
-          >
-            <Plus className="w-4 h-4" />
-            Подорож
-          </Button>
-        ) : (
-          <Button
-            onClick={() => navigate("/my-trips")}
-            variant="outline"
-            size="lg"
-            className="cursor-pointer px-5 text-sm"
-          >
-            Мої Подорожі
-          </Button>
-        )}
-
-        <div className="flex">
+    <header className="relative bg-background z-50">
+      <div className="flex-between px-4 md:px-8 lg:px-35 w-full h-20 border-b">
+        {/* Logo */}
+        <Link to={"/"}>
+          <div className="flex-center gap-4.5">
+            <img
+              src="/logo.svg"
+              alt="Smarty Travels"
+              className="w-[38px] h-[38px]"
+            />
+            <h6 className="hidden md:block">Smarty Travels</h6>
+          </div>
+        </Link>
+        {/* Navigation */}
+        <nav className="hidden md:block">
+          <ul className="flex-center gap-6">
+            <li>
+              <Link to={"/"}>
+                <h5>Головна</h5>
+              </Link>
+            </li>
+            <li>
+              <Link to={"https://smarty-travels.com/pro-nas/"}>
+                <h5>Про Hас</h5>
+              </Link>
+            </li>
+            <li>
+              <Link to={"https://smarty-travels.com/turystychni-servisy/"}>
+                <h5>Туристичні Сервіси</h5>
+              </Link>
+            </li>
+            <li>
+              <Link to={"https://smarty-travels.com/napryamki/"}>
+                <h5>Напрямки</h5>
+              </Link>
+            </li>
+            <li>
+              <Link to={"https://smarty-travels.com/turystychni-porady/"}>
+                <h5>Туристичні Поради</h5>
+              </Link>
+            </li>
+            <li>
+              <Link to={"https://smarty-travels.com/blog/"}>
+                <h5>Блог</h5>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+        {/* Login buttons */}
+        <div className="flex-center gap-2">
           {!user ? (
             <Button
-              onClick={() => openSignIn()}
-              className="cursor-pointer hover:bg-secondary w-10 h-10 rounded-full"
+              onClick={() => navigate("/create-trip")}
+              variant="outline"
+              size="lg"
+              className="cursor-pointer px-5 text-sm"
             >
-              <User2 />
+              <Plus className="w-4 h-4" />
+              Подорож
             </Button>
           ) : (
-            <UserButton />
+            <Button
+              onClick={() => navigate("/my-trips")}
+              variant="outline"
+              size="lg"
+              className="cursor-pointer px-5 text-sm"
+            >
+              Мої Подорожі
+            </Button>
           )}
+
+          <div className="flex">
+            {!user ? (
+              <Button
+                onClick={() => openSignIn()}
+                className="cursor-pointer hover:bg-secondary w-10 h-10 rounded-full"
+              >
+                <User2 />
+              </Button>
+            ) : (
+              <UserButton />
+            )}
+          </div>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="flex md:hidden cursor-pointer hover:bg-secondary p-2 rounded-md"
+          >
+            {isOpen ? <AiOutlineClose className="w-6 h-6" /> : <Menu />}
+          </button>
         </div>
-        <button className="flex md:hidden cursor-pointer hover:bg-secondary p-2 rounded-md">
-          <Menu />
-        </button>
+        {/* Mob navigation */}
+        <nav
+          className={`${isOpen ? "block" : "hidden"}  md:hidden absolute top-20 left-0`}
+        >
+          <ul className="w-full min-w-2xl h-screen bg-secondary px-8 py-16 flex flex-col gap-6">
+            <li>
+              <Link to={"/"} className="">
+                <h5 className="text-white">Головна</h5>
+              </Link>
+            </li>
+            <li>
+              <Link to={"https://smarty-travels.com/pro-nas/"}>
+                <h5 className="text-white">Про Hас</h5>
+              </Link>
+            </li>
+            <li>
+              <Link to={"https://smarty-travels.com/turystychni-servisy/"}>
+                <h5 className="text-white">Туристичні Сервіси</h5>
+              </Link>
+            </li>
+            <li>
+              <Link to={"https://smarty-travels.com/napryamki/"}>
+                <h5 className="text-white">Напрямки</h5>
+              </Link>
+            </li>
+            <li>
+              <Link to={"https://smarty-travels.com/turystychni-porady/"}>
+                <h5 className="text-white">Туристичні Поради</h5>
+              </Link>
+            </li>
+            <li>
+              <Link to={"https://smarty-travels.com/blog/"}>
+                <h5 className="text-white">Блог</h5>
+              </Link>
+            </li>
+          </ul>
+        </nav>
       </div>
     </header>
   );

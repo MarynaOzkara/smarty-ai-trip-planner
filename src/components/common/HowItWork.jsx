@@ -1,50 +1,66 @@
 const HowItWork = () => {
   return (
-    <section id="how-it-work" className="border max-padd-container py-20">
+    <section
+      id="how-it-work"
+      className="border max-padd-container py-10 md:py-20"
+    >
       <h2 className="text-center">
         Як працює <span className="text-accent">Smarty AI?</span>
       </h2>
-      <div className="mt-10 grid gap-10 grid-cols-1 md:grid-cols-3">
-        <div className="relative h-80 bg-secondary-foreground p-4 rounded-2xl border border-muted-foreground shadow-sm">
+      <div className="mt-6 md:mt-10 grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-3">
+        <div className="relative h-70 bg-secondary-foreground p-8 rounded-2xl border border-muted-foreground shadow-sm hover:scale-105">
           {/* Step 1 */}
-          <div className="flex gap-4 mt-2">
-            <h3 className="text-accent">1</h3>
-            <div>
-              <h3 className="text-2xl">Куди хочете поїхати</h3>
-              <p>Оберіть звідки і куди плануєте наступну подорож</p>
+          <div className="flex flex-col">
+            <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
+              <h3 className="text-white text-3xl">1.</h3>
             </div>
+            <div className="mt-4">
+              <h3 className="text-2xl">Куди хочете поїхати</h3>
+              <p className="w-50 mt-2">
+                Оберіть звідки і куди плануєте наступну подорож
+              </p>
+            </div>
+
             <img
-              className="w-30 absolute bottom-5 right-5"
+              className="w-22 md:w-30 absolute bottom-2 right-2"
               src="/Smarty-thinking.png"
               alt="Smarty Ai thinking"
             />
           </div>
         </div>
-        <div className="relative h-80 bg-secondary-foreground p-6 rounded-2xl border border-muted-foreground shadow-sm">
+        <div className="relative h-70 bg-secondary-foreground p-8 rounded-2xl border border-muted-foreground shadow-sm hover:scale-105">
           {/* Step 2 */}
-          <div className="flex gap-4 mt-2">
-            <h3 className="text-accent">2</h3>
-            <div>
+          <div className="flex flex-col">
+            <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
+              <h3 className="text-white text-3xl">2.</h3>
+            </div>
+            <div className="mt-4">
               <h3 className="text-2xl">Хто, коли і за скільки</h3>
-              <p>Оберіть дати, бюджет подорожі та хто подорожує</p>
+              <p className="w-50 mt-2">
+                Оберіть дати, бюджет подорожі та хто подорожує
+              </p>
             </div>
             <img
-              className="w-40 absolute bottom-5 right-5"
+              className="w-30 md:w-40 absolute bottom-2 right-2"
               src="/Smarty-calendar.png"
               alt="Smarty Ai with calendar"
             />
           </div>
         </div>
-        <div className="relative h-80 bg-secondary-foreground p-6 rounded-2xl border border-muted-foreground shadow-sm">
+        <div className="relative h-70 bg-secondary-foreground p-8 rounded-2xl border border-muted-foreground shadow-sm hover:scale-105">
           {/* Step 3 */}
-          <div className="flex gap-4 mt-2">
-            <h3 className="text-accent">3</h3>
-            <div>
+          <div className="flex flex-col">
+            <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
+              <h3 className="text-white text-3xl">3.</h3>
+            </div>
+            <div className="mt-4">
               <h3 className="text-2xl">Готовий план подорожі</h3>
-              <p>Маршрут, квитки, готелі та бюджет - все в одному місці</p>
+              <p className="w-50 mt-2">
+                Маршрут, квитки, готелі та бюджет - все в одному місці
+              </p>
             </div>
             <img
-              className="w-40 absolute bottom-5 right-5"
+              className="w-30 md:w-40 absolute bottom-2 right-2"
               src="/SmartyAI.png"
               alt="Smarty Ai trip plan"
             />
