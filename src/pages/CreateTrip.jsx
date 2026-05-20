@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { SelectDates } from "../components/common/SelectDates";
 import SelectPlace from "../components/common/SelectPlace";
 import SelectBudget from "../components/common/SelectBudget";
@@ -19,7 +19,7 @@ const CreateTrip = () => {
 
   const tripData = useSelector(selectTripData);
 
-  console.log(tripData);
+  // console.log(tripData);
   const handleBack = () => {
     if (step > 1) {
       setStep(step - 1);
@@ -181,9 +181,9 @@ const CreateTrip = () => {
             </div>
           </div>
         </div>
-        <div className="hidden lg:block max-w-lg">
+        <div className="hidden mx-auto lg:block max-w-lg">
           <img
-            src="/public/popular-destination.png"
+            src="/popular-destination.png"
             alt="Popular destinations"
             className="opacity-20"
           />

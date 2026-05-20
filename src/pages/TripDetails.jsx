@@ -18,7 +18,7 @@ const TripDetails = () => {
   const [trip, setTrip] = useState([]);
   const [placePhoto, setPlacePhoto] = useState("");
   const navigate = useNavigate();
-  console.log("trip", trip);
+  // console.log("trip", trip);
   const fetchTripData = async () => {
     const docRef = doc(db, "trips", tripId);
     const docSnap = await getDoc(docRef);

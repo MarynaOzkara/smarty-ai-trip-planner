@@ -1,9 +1,18 @@
 import { Play } from "lucide-react";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
+import { useClerk, useUser } from "@clerk/react";
 
 const Hero = () => {
   const navigate = useNavigate();
+  const { user } = useUser();
+  const { openSignUp } = useClerk();
+  const createTrip = () => {
+    if (!user) {
+      openSignUp();
+    }
+    navigate("/create-trip");
+  };
   return (
     <section className="relative overflow-hidden bg-linear-to-br from-background to-primary/20 pt-10 pb-10 lg:pb-20">
       <img
@@ -30,7 +39,7 @@ const Hero = () => {
           </p>
           <div className="pt-10 gap-4 flex flex-col md:flex-row">
             <Button
-              onClick={() => navigate("/create-trip")}
+              onClick={() => createTrip()}
               className="py-6 px-10 cursor-pointer hover:bg-secondary text-xl"
             >
               Створити подорож

@@ -8,7 +8,7 @@ import TripDetails from "./pages/TripDetails";
 import MyTrips from "./pages/MyTrips";
 import PageNotFound from "./pages/PageNotFound";
 import Footer from "./components/common/Footer";
-import Loader from "./components/common/Loader";
+import AuthProvider from "./provider/AuthProvider";
 
 const App = () => {
   return (
@@ -17,10 +17,31 @@ const App = () => {
       <Header />
       <Routes>
         <Route index path="/" element={<Home />} />
-        <Route path="/create-trip" element={<CreateTrip />} />
+        <Route
+          path="/create-trip"
+          element={
+            <AuthProvider>
+              <CreateTrip />
+            </AuthProvider>
+          }
+        />
         <Route path="/generate-trip" element={<GenerateTrip />} />
-        <Route path="/trip/:tripId" element={<TripDetails />} />
-        <Route path="/my-trips" element={<MyTrips />} />
+        <Route
+          path="/trip/:tripId"
+          element={
+            <AuthProvider>
+              <TripDetails />
+            </AuthProvider>
+          }
+        />
+        <Route
+          path="/my-trips"
+          element={
+            <AuthProvider>
+              <MyTrips />
+            </AuthProvider>
+          }
+        />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

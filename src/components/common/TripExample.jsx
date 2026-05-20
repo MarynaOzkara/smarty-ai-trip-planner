@@ -82,7 +82,7 @@ const TripExample = () => {
               </Button>
               <img
                 className="w-30 xl:w-40 absolute left-15 bottom-5"
-                src="/public/Smarty-ready.png"
+                src="/Smarty-ready.png"
                 alt="Smarty Ai ready"
               />
             </div>

@@ -10,7 +10,13 @@ const Header = () => {
   const { user } = useUser();
   const [isOpen, setIsOpen] = useState(false);
   // console.log(user);
-  const { openSignIn } = useClerk();
+  const { openSignUp } = useClerk();
+  const createTrip = () => {
+    if (!user) {
+      openSignUp();
+    }
+    navigate("/create-trip");
+  };
   return (
     <header className="relative bg-background z-50">
       <div className="flex-between w-full max-padd-container h-20">
@@ -66,7 +72,7 @@ const Header = () => {
         <div className="flex-center gap-2">
           {!user ? (
             <Button
-              onClick={() => navigate("/create-trip")}
+              onClick={() => createTrip()}
               variant="outline"
               size="lg"
               className="cursor-pointer px-5 text-sm"
@@ -88,7 +94,7 @@ const Header = () => {
           <div className="flex">
             {!user ? (
               <Button
-                onClick={() => openSignIn()}
+                onClick={() => openSignUp()}
                 className="cursor-pointer hover:bg-secondary w-10 h-10 rounded-full"
               >
                 <User2 />

@@ -37,8 +37,10 @@ const GenerateTrip = () => {
       setLoading(true);
       try {
         const response = await generateTripWithAI(DYNAMIC_PROMPT);
+        if (response) {
+          dispatch(resetTripData());
+        }
         await saveToDB(response);
-        dispatch(resetTripData());
 
         // console.log("AI response:", response);
       } catch (error) {
@@ -54,24 +56,18 @@ const GenerateTrip = () => {
     };
     fetchData();
     const saveToDB = async (trip) => {
-      try {
-        const userEmail = user?.primaryEmailAddress?.emailAddress;
-        // console.log(userEmail);
-        const docId = Date.now().toString();
-        await setDoc(doc(db, "trips", docId), {
-          userSelection: tripData,
-          tripData: trip,
-          userEmail: userEmail,
-          id: docId,
-        });
-        setLoading(false);
-        toast.success("Подорож успішно створено!");
-        navigate(`/trip/${docId}`);
-      } catch (error) {
-        console.error("Error saving trip to Firestore:", error);
-        setLoading(false);
-        toast.error("Сталася помилка при збереженні подорожі.");
-      }
+      const userEmail = user?.primaryEmailAddress?.emailAddress;
+      // console.log(userEmail);
+      const docId = Date.now().toString();
+      await setDoc(doc(db, "trips", docId), {
+        userSelection: tripData,
+        tripData: trip,
+        userEmail: userEmail,
+        id: docId,
+      });
+      setLoading(false);
+      toast.success("Подорож успішно створено!");
+      navigate(`/trip/${docId}`);
     };
   }, [
     DYNAMIC_PROMPT,
