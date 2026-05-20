@@ -54,11 +54,11 @@ const CreateTrip = () => {
   };
 
   return (
-    <section className="bg-secondary-foreground min-h-screen py-30">
-      <h2 className="text-center mb-10">Створити подорож</h2>
-      <div className="border max-padd-container flex flex-col md:flex-row gap-10">
+    <section className="bg-secondary-foreground pt-10 pb-20 xl:pb-30">
+      <h2 className="text-center mb-6">Створити подорож</h2>
+      <div className="relative max-padd-container flex flex-col lg:flex-row">
         {/* Container */}
-        <div className="w-full max-w-[50%] min-h-[85vh] sm:min-h-[80vh] bg-background rounded-3xl shadow-xl border border-gray-100 overflow-hidden flex flex-col">
+        <div className="w-full lg:max-w-[50%] bg-background rounded-3xl shadow-xl border border-gray-100 overflow-hidden flex flex-col">
           {/* Progress Bar */}
           <div className="h-2 bg-primary/20 w-full">
             <div
@@ -66,7 +66,7 @@ const CreateTrip = () => {
               className="h-full bg-primary transition-all duration-500 ease-out"
             />
           </div>
-          <div className="p-5 md:p-12 flex flex-col flex-1">
+          <div className="p-5 lg:p-8 xl:p-12 flex flex-col flex-1">
             {/* Steps Indicator*/}
             <div className="flex-center space-x-2 mb-8">
               {[1, 2, 3, 4].map((s) => (
@@ -76,7 +76,7 @@ const CreateTrip = () => {
                 />
               ))}
             </div>
-            <div className="flex-1 flex flex-col pt-2 sm:p-4">
+            <div className="flex-1 flex flex-col pt-2">
               {step === 1 && (
                 <div className="space-y-6">
                   <div className="mb-4 text-center">
@@ -132,7 +132,7 @@ const CreateTrip = () => {
                     <h3 className="text-2xl mb-2">Крок 3: Який ваш бюджет?</h3>
                     <p>Оберіть комфортний бюджет подорожі.</p>
                   </div>
-                  <div className="mt-10">
+                  <div className="mt-10 md:mt-6">
                     <SelectBudget />
                   </div>
                 </div>
@@ -145,7 +145,7 @@ const CreateTrip = () => {
                     </h3>
                     <p>Оберіть компанію для подорожі.</p>
                   </div>
-                  <div className="mt-10">
+                  <div className="mt-10 md:mt-6">
                     <SelectTravelers />
                   </div>
                 </div>
@@ -181,8 +181,12 @@ const CreateTrip = () => {
             </div>
           </div>
         </div>
-        <div>
-          <img src="/SmartyAI.png" alt="SmartyAi" />
+        <div className="hidden lg:block max-w-lg">
+          <img
+            src="/public/popular-destination.png"
+            alt="Popular destinations"
+            className="opacity-20"
+          />
         </div>
       </div>
       <LoginDialog

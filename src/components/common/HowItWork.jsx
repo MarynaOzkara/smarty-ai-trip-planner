@@ -1,13 +1,10 @@
 const HowItWork = () => {
   return (
-    <section
-      id="how-it-work"
-      className="border max-padd-container py-10 md:py-20"
-    >
+    <section id="how-it-work" className="max-padd-container py-10 lg:py-20">
       <h2 className="text-center">
         Як працює <span className="text-accent">Smarty AI?</span>
       </h2>
-      <div className="mt-6 md:mt-10 grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-3">
+      <div className="mt-6 md:mt-10 grid gap-6 md:gap-10 grid-cols-1 lg:grid-cols-3">
         <div className="relative h-70 bg-secondary-foreground p-8 rounded-2xl border border-muted-foreground shadow-sm hover:scale-105">
           {/* Step 1 */}
           <div className="flex flex-col">
@@ -22,7 +19,7 @@ const HowItWork = () => {
             </div>
 
             <img
-              className="w-22 md:w-30 absolute bottom-2 right-2"
+              className="w-22 lg:w-15 xl:w-25 absolute bottom-2 right-2"
               src="/Smarty-thinking.png"
               alt="Smarty Ai thinking"
             />
@@ -41,7 +38,7 @@ const HowItWork = () => {
               </p>
             </div>
             <img
-              className="w-30 md:w-40 absolute bottom-2 right-2"
+              className="w-30 lg:w-20 xl:w-35 absolute bottom-2 right-2"
               src="/Smarty-calendar.png"
               alt="Smarty Ai with calendar"
             />
@@ -60,7 +57,7 @@ const HowItWork = () => {
               </p>
             </div>
             <img
-              className="w-30 md:w-40 absolute bottom-2 right-2"
+              className="w-30 lg:w-20 xl:w-35 absolute bottom-2 right-2"
               src="/SmartyAI.png"
               alt="Smarty Ai trip plan"
             />

@@ -10,10 +10,10 @@ import { Button } from "../ui/button";
 const TripExample = () => {
   const navigate = useNavigate();
   return (
-    <section className="border py-10 md:py-20 bg-secondary-foreground">
-      <div className="max-padd-container border">
+    <section className="py-10 lg:py-20 bg-secondary-foreground">
+      <div className="max-padd-container">
         <h2 className="text-center">Приклад подорожі</h2>
-        <div className="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 ">
+        <div className="mt-6 md:mt-10 grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-10 ">
           <div className="bg-white h-80 rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <img
               className="h-60 w-full object-cover"
@@ -33,9 +33,9 @@ const TripExample = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white h-80 rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="p-6 flex flex-col gap-4">
-              <div className="flex items-start gap-6">
+          <div className="bg-white h-80 rounded-2xl shadow-sm border border-gray-100">
+            <div className="p-6 lg:p-4 xl:p-6 flex flex-col gap-4">
+              <div className="flex items-start gap-6 lg:gap-2 xl:gap-6">
                 <FaPlane className="w-7 h-7 text-accent" />
                 <div>
                   <h4 className="font-bold">Авіаквитки</h4>
@@ -44,7 +44,7 @@ const TripExample = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-6">
+              <div className="flex items-start gap-6 lg:gap-2 xl:gap-6">
                 <FaHotel className="w-7 h-7 text-accent" />
                 <div>
                   <h4 className="font-bold">Готелі</h4>
@@ -53,14 +53,14 @@ const TripExample = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-6">
+              <div className="flex items-start gap-6 lg:gap-2 xl:gap-6">
                 <FaMapLocationDot className="w-7 h-7 text-accent" />
                 <div>
                   <h4 className="font-bold">Маршрут</h4>
                   <p>готовий план по днях</p>
                 </div>
               </div>
-              <div className="flex items-start gap-6">
+              <div className="flex items-start gap-6 lg:gap-2 xl:gap-6">
                 <FaWallet className="w-7 h-7 text-accent" />
                 <div>
                   <h4 className="font-bold">Загальний бюджет</h4>
@@ -72,16 +72,16 @@ const TripExample = () => {
             </div>
           </div>
           <div className="relative bg-white h-70 md:h-80 rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="p-6 text-center">
+            <div className="p-6 lg:p-4 xl:p-6 text-center">
               <h4 className="font-bold">Готовий план за 1 хвилину!</h4>
               <Button
                 onClick={() => navigate("/create-trip")}
-                className="mt-6 py-6 px-10 cursor-pointer hover:bg-secondary text-xl"
+                className="mt-6 py-6 px-8 cursor-pointer hover:bg-secondary text-xl"
               >
                 Спробувати зараз
               </Button>
               <img
-                className="w-30 md:w-40 absolute left-15 bottom-5"
+                className="w-30 xl:w-40 absolute left-15 bottom-5"
                 src="/public/Smarty-ready.png"
                 alt="Smarty Ai ready"
               />

@@ -13,21 +13,23 @@ const Header = () => {
   const { openSignIn } = useClerk();
   return (
     <header className="relative bg-background z-50">
-      <div className="flex-between px-4 md:px-8 lg:px-35 w-full h-20 border-b">
+      <div className="flex-between w-full max-padd-container h-20">
         {/* Logo */}
         <Link to={"/"}>
-          <div className="flex-center gap-4.5">
+          <div className="flex-center md:gap-4 lg:gap-4.5">
             <img
               src="/logo.svg"
               alt="Smarty Travels"
               className="w-[38px] h-[38px]"
             />
-            <h6 className="hidden md:block">Smarty Travels</h6>
+            <h6 className="hidden md:block whitespace-nowrap">
+              Smarty Travels
+            </h6>
           </div>
         </Link>
         {/* Navigation */}
-        <nav className="hidden md:block">
-          <ul className="flex-center gap-6">
+        <nav className="hidden lg:block">
+          <ul className="flex items-center justify-center flex-wrap lg:gap-4 xl:gap-6">
             <li>
               <Link to={"/"}>
                 <h5>Головна</h5>
@@ -97,16 +99,16 @@ const Header = () => {
           </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex md:hidden cursor-pointer hover:bg-secondary p-2 rounded-md"
+            className="flex lg:hidden cursor-pointer hover:bg-secondary p-2 rounded-md"
           >
             {isOpen ? <AiOutlineClose className="w-6 h-6" /> : <Menu />}
           </button>
         </div>
         {/* Mob navigation */}
         <nav
-          className={`${isOpen ? "block" : "hidden"}  md:hidden absolute top-20 left-0`}
+          className={`${isOpen ? "block" : "hidden"}  lg:hidden absolute top-20 left-0`}
         >
-          <ul className="w-full min-w-2xl h-screen bg-secondary px-8 py-16 flex flex-col gap-6">
+          <ul className="w-svw h-screen bg-secondary px-8 py-16 flex flex-col gap-6">
             <li>
               <Link to={"/"} className="">
                 <h5 className="text-white">Головна</h5>

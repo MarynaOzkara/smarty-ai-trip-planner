@@ -8,6 +8,7 @@ import TripDetails from "./pages/TripDetails";
 import MyTrips from "./pages/MyTrips";
 import PageNotFound from "./pages/PageNotFound";
 import Footer from "./components/common/Footer";
+import Loader from "./components/common/Loader";
 
 const App = () => {
   return (

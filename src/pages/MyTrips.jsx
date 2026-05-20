@@ -52,7 +52,7 @@ const MyTrips = () => {
   };
   return (
     <div className="bg-secondary-foreground min-h-screen">
-      <div className="max-padd-container py-30">
+      <div className="max-padd-container py-10 md:py-20">
         <button
           onClick={() => navigate("/create-trip")}
           className="mb-10 flex-center gap-2 cursor-pointer text-sm text-white bg-accent px-4 py-1 rounded-full hover:bg-secondary transition-colors"

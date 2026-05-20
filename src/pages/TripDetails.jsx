@@ -76,7 +76,7 @@ const TripDetails = () => {
             </div>
           </div>
           <div className="max-padd-container py-12">
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="relative z-10 grid grid-cols-1 xl:grid-cols-3 gap-8">
               {/* Left Column Itinerary */}
               <div className="lg:col-span-2 space-y-6">
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-2 md:p-6">
