@@ -1,25 +1,28 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SelectDates } from "../components/common/SelectDates";
 import SelectPlace from "../components/common/SelectPlace";
 import SelectBudget from "../components/common/SelectBudget";
 import SelectTravelers from "../components/common/SelectTravelers";
 import { ArrowRight, CheckCircle } from "lucide-react";
-import { useSelector } from "react-redux";
-import { selectTripData } from "../redux/selectors";
 import { toast } from "sonner";
-import LoginDialog from "../components/common/LoginDialog";
-import { useUser } from "@clerk/react";
+import { useClerk, useUser } from "@clerk/react";
 import { useNavigate } from "react-router-dom";
+import { TripContext } from "../provider/TripContext";
+import Loader from "../components/common/Loader";
+import { generateTripWithAI } from "../services/AiModel";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../services/firebaseConfig";
 
 const CreateTrip = () => {
   const [step, setStep] = useState(1);
-  const [openDialog, setOpenDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
+  // const [openDialog, setOpenDialog] = useState(false);
   const { user } = useUser();
+  const { openSignUp } = useClerk();
   const navigate = useNavigate();
+  const { tripDetails } = useContext(TripContext);
 
-  const tripData = useSelector(selectTripData);
-
-  // console.log(tripData);
+  console.log(tripDetails);
   const handleBack = () => {
     if (step > 1) {
       setStep(step - 1);
@@ -33,25 +36,71 @@ const CreateTrip = () => {
       generateTrip();
     }
   };
-  const generateTrip = () => {
+  const generateTrip = async () => {
     if (
-      !tripData.origin ||
-      !tripData.destination ||
-      !tripData.startDate ||
-      !tripData.endDate ||
-      !tripData.budget ||
-      !tripData.travelers
+      !tripDetails.origin ||
+      !tripDetails.destination ||
+      !tripDetails.startDate ||
+      !tripDetails.endDate ||
+      !tripDetails.budget ||
+      !tripDetails.travelers
     ) {
       return toast.error("Будь ласка заповніть усі необхідні поля");
     }
-    if (tripData.duration > 5) {
+    if (tripDetails.duration > 5) {
       return toast.error("На безкоштовному тарифі AI генерує максимум 5 днів");
     }
     if (!user) {
-      return setOpenDialog(true);
+      openSignUp();
+      return;
     }
-    navigate("/generate-trip");
+    setLoading(true);
+    const DYNAMIC_PROMPT = `Generate a Travel Plan from origin: ${tripDetails?.origin} to destination: ${tripDetails?.destination}, with startDate ${tripDetails?.startDate} and endDate ${tripDetails?.endDate} for ${tripDetails?.duration} days for ${tripDetails?.travelers} for a ${tripDetails?.budget} budget with a flight details, airlines, flight price with a booking url, hotels options with list of 3-5 hotels with hotel name, hotel address, price only per 1 night, rating, descriptions, booking url, and places to visit nearby with place name, address, details, price ,ticket pricing, booking url, time to travel each of the locations for 1 day plan with best time to visit. Please include also in the itinerary real restaurants or caffe where people can have a breakfast, launch and dinner with only real place name, address and price. Plan please itinerary activities time from 09:00 - 18:00. Don’t include in itineraty flight and hotel, start straightaway from activities. And calculate approximately price for trip for one person including flight price, hotel price for all days and activities price. Geve descriptions for tripNote, hotel description, activity and activities details, howToGetTo and transfer details(max 1 sentence) in Ukrainian language, other data in english. hotelName and placeName only data name in english without any description.
+1.Search flights at kiwi.com and add Bookin url www.kiwi.com/deep?affilid=ozkarablogaitripplanner&currency=EUR&departure=anytime&lang=en&return=anytime&returnFromDifferentAirport=false&returnToDifferentAirport=false. Only change destination and dates for trip, for example for Prague from 16 March to 18 March www.kiwi.com/deep?affilid=ozkarablogaitripplanner&currency=EUR&departure=2026-03-16_2026-03-16&destination=prague_cz&lang=en&return=2026-03-18_2026-03-18&returnFromDifferentAirport=false&returnToDifferentAirport=false
+2. Search hotels at booking.com.
+3.Search tickets for activities at https://tiqets.com. When you make a booking url use always this link https://tiqets.tpo.li/BxxMbWkW.
+4.If you can't find booking url leave emty string, do not write N/A or any other text, only empty string. For example, if you can't find booking url for restaurant, it should be "bookingUrl": "".
+5.Only, if origin city located in Ukraine, please search flights from Poland, Romania, Slovakia, Hungary, Moldova. For example, if origin is Kyiv, search flights from Warsaw, Budapest, Bratislava, Bucharest, Chisinau. Add in trip buss from origin city to nearest city with flights and add in strict schema transferFromOrigin: booking url, company name and price for bus tickets search at https://infobus.eu/.
+6.If origin city located in Ukraine and destination city located in Ukraine don't add flight, only add transferToDestination with with strict schema transferToDestination with booking url, company name and price for bus tickets search at https://infobus.eu/.
+7.If origin or destination city located in Russia, Belarus don't make any Travel Plan and return JSON response with tripNote: "Sorry, we cannot generate a travel plan for this destination due to current geopolitical situation."
+8.If destination city in Europe has no flights, please search for nearby cities with flights and add to trip transfer from airport to destination city with strict schema transferToDestination with booking url, company name and price for bus tickets search at https://www.omio.com/. For example, if destination is Sintra, Portugal, search for flights to Lisbon and transfer from Lisbon to Sintra.
+9.If travelers with pets, please search for pet friendly options and add pet-friendly hotels, airlines and activities.
+10.All prices geve integer.
+11.Generate and return a strict JSON response only`;
+
+    try {
+      const response = await generateTripWithAI(DYNAMIC_PROMPT);
+      await saveToDB(response);
+    } catch (error) {
+      setLoading(false);
+      // console.error("Error generating trip:", error);
+      toast.error(
+        error.message?.includes("429")
+          ? "Забагато запитів до AI. Спробуйте ще раз через хвилину."
+          : "Сталася помилка при генерації подорожі. Спробуйте ще раз.",
+      );
+      navigate("/create-trip");
+    }
   };
+
+  const saveToDB = async (trip) => {
+    const userEmail = user?.primaryEmailAddress?.emailAddress;
+    console.log(userEmail);
+    const docId = Date.now().toString();
+    await setDoc(doc(db, "trips", docId), {
+      userSelection: tripDetails,
+      tripData: trip,
+      userEmail: userEmail,
+      id: docId,
+    });
+    setLoading(false);
+    toast.success("Подорож успішно створено!");
+    navigate(`/trip/${docId}`);
+  };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section className="bg-secondary-foreground pt-10 pb-20 xl:pb-30">
@@ -161,12 +210,12 @@ const CreateTrip = () => {
               </button>
               <button
                 disabled={
-                  (step === 1 && !tripData.origin) ||
-                  (step === 1 && !tripData.destination) ||
-                  (step === 2 && !tripData.startDate) ||
-                  (step === 2 && !tripData.endDate) ||
-                  (step === 3 && !tripData.budget) ||
-                  (step === 4 && !tripData.travelers)
+                  (step === 1 && !tripDetails.origin) ||
+                  (step === 1 && !tripDetails.destination) ||
+                  (step === 2 && !tripDetails.startDate) ||
+                  (step === 2 && !tripDetails.endDate) ||
+                  (step === 3 && !tripDetails.budget) ||
+                  (step === 4 && !tripDetails.travelers)
                 }
                 className={`flex items-center px-8 py-3 rounded-full font-bold text-white transition-all shadow-lg bg-primary cursor-pointer hover:bg-secondary disabled:bg-gray-300 disabled:cursor-not-allowed`}
                 onClick={handleNext}
@@ -189,11 +238,6 @@ const CreateTrip = () => {
           />
         </div>
       </div>
-      <LoginDialog
-        open={openDialog}
-        onClose={() => setOpenDialog(false)}
-        onLoginSuccess={generateTrip}
-      />
     </section>
   );
 };

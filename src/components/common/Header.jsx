@@ -9,7 +9,6 @@ const Header = () => {
   const navigate = useNavigate();
   const { user } = useUser();
   const [isOpen, setIsOpen] = useState(false);
-  // console.log(user);
   const { openSignUp } = useClerk();
   const createTrip = () => {
     if (!user) {

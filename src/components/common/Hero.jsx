@@ -10,6 +10,7 @@ const Hero = () => {
   const createTrip = () => {
     if (!user) {
       openSignUp();
+      return;
     }
     navigate("/create-trip");
   };

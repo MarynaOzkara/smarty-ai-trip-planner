@@ -10,12 +10,13 @@ import {
 } from "@/components/ui/popover";
 import { uk } from "date-fns/locale";
 import moment from "moment/moment";
-import { useDispatch } from "react-redux";
-import { addTripData } from "../../redux/slices/formDataSlice";
+import "moment/locale/uk";
+import { TripContext } from "../../provider/TripContext";
+
+moment.locale("uk");
 
 export function SelectDates() {
-  const dispatch = useDispatch();
-
+  const { tripDetails, setTripDetails } = useContext(TripContext);
   const [date, setDate] = useState();
 
   const startDate = date?.from ? moment(date?.from).format("DD/MM/YYYY") : "";
@@ -25,9 +26,14 @@ export function SelectDates() {
 
   useEffect(() => {
     if (startDate && endDate) {
-      dispatch(addTripData({ startDate, endDate, duration }));
+      setTripDetails({
+        ...tripDetails,
+        startDate: startDate,
+        endDate: endDate,
+        duration: duration,
+      });
     }
-  }, [dispatch, startDate, endDate, duration]);
+  }, [setTripDetails, tripDetails, startDate, endDate, duration]);
 
   return (
     <Field className="mx-auto w-150">
@@ -42,11 +48,11 @@ export function SelectDates() {
             {date?.from ? (
               date.to ? (
                 <>
-                  {moment(date?.from).format("DD/MM/YYYY")} -{" "}
-                  {moment(date?.to).format("DD/MM/YYYY")}
+                  {moment(date?.from).format("D MMMM")} -{" "}
+                  {moment(date?.to).format("D MMMM")}
                 </>
               ) : (
-                moment(date?.from).format("DD/MM/YYYY")
+                moment(date?.from).format("D MMMM")
               )
             ) : (
               <span>Оберіть дати</span>

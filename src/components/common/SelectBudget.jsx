@@ -1,18 +1,14 @@
 import { BUDGET_OPTIONS } from "../../../public/data";
-import { useDispatch, useSelector } from "react-redux";
-import { selectBudget } from "../../redux/selectors";
-import { addTripData } from "../../redux/slices/formDataSlice";
+import { useContext } from "react";
+import { TripContext } from "../../provider/TripContext";
 
 const SelectBudget = () => {
-  const dispatch = useDispatch();
-  const budget = useSelector(selectBudget);
-
+  const { tripDetails, setTripDetails } = useContext(TripContext);
   const handleInputChange = (budget) => {
-    dispatch(
-      addTripData({
-        budget: budget,
-      }),
-    );
+    setTripDetails({
+      ...tripDetails,
+      budget: budget,
+    });
   };
 
   return (
@@ -21,7 +17,7 @@ const SelectBudget = () => {
         <button
           key={opt.id}
           onClick={() => handleInputChange(opt.id)}
-          className={`p-4 cursor-pointer rounded-xl border-2 transition-all flex-center flex-col gap-3 ${budget === opt.id ? "border-accent bg-secondary-foreground shadow-md scale-102 lg:scale-105" : "border-gray-200 hover:border-secondary"}`}
+          className={`p-4 cursor-pointer rounded-xl border-2 transition-all flex-center flex-col gap-3 ${tripDetails.budget === opt.id ? "border-accent bg-secondary-foreground shadow-md scale-102 lg:scale-105" : "border-gray-200 hover:border-secondary"}`}
         >
           <div className="text-3xl">{opt.icon}</div>
           <h5 className="font-bold">{opt.label}</h5>

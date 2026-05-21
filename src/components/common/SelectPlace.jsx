@@ -1,13 +1,11 @@
 import { useJsApiLoader, StandaloneSearchBox } from "@react-google-maps/api";
-import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { addTripData } from "../../redux/slices/formDataSlice";
+import { useContext, useRef, useState } from "react";
+import { TripContext } from "../../provider/TripContext";
 
 const placesKey = import.meta.env.VITE_GOOGLE_PLACES_API_KEY;
 
 const SelectPlace = ({ name }) => {
-  const dispatch = useDispatch();
-
+  const { tripDetails, setTripDetails } = useContext(TripContext);
   const inputRef = useRef(null);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -17,12 +15,10 @@ const SelectPlace = ({ name }) => {
   });
   const [place, setPlace] = useState();
   const onPlaceChanged = (name) => {
-    // console.log(name);
     const place = inputRef.current.getPlaces();
     const city = place[0].formatted_address;
     setPlace(city);
-
-    dispatch(addTripData({ [name]: city }));
+    setTripDetails({ ...tripDetails, [name]: city });
   };
 
   return (
