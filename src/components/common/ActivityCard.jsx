@@ -64,7 +64,9 @@ const ActivityCard = ({ activity }) => {
                   <Map width={15} height={15} />
                   {activity?.address}
                 </a>
-                <p className="text-[16px] mt-1">{activity?.details}</p>
+                <p className="text-[16px] mt-1 line-clamp-4">
+                  {activity?.details}
+                </p>
                 <div className="flex flex-col sm:flex-row items-center sm:justify-between">
                   <p className="text-gray-600 mt-1 flex items-center gap-2">
                     <Ticket /> <b>{activity?.ticketPricing} €</b>

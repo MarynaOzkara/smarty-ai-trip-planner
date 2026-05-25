@@ -8,10 +8,15 @@ import MyTrips from "./pages/MyTrips";
 import PageNotFound from "./pages/PageNotFound";
 import Footer from "./components/common/Footer";
 import AuthProvider from "./provider/AuthProvider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TripContext } from "./provider/TripContext";
+import Login from "./pages/Login";
+import Signup from "./pages/SignUp";
+import { useUser } from "@clerk/react";
+import { createNewUser } from "./services/createNewUser";
 
 const App = () => {
+  const { user, isLoaded, isSignedIn } = useUser();
   const [tripDetails, setTripDetails] = useState({
     origin: "",
     destination: "",
@@ -21,6 +26,14 @@ const App = () => {
     budget: "",
     travelers: "",
   });
+
+  useEffect(() => {
+    if (!isLoaded || !isSignedIn || !user) {
+      return;
+    }
+    createNewUser(user);
+  }, [isLoaded, isSignedIn, user]);
+
   return (
     <>
       <TripContext.Provider value={{ tripDetails, setTripDetails }}>
@@ -28,6 +41,8 @@ const App = () => {
         <Header />
         <Routes>
           <Route index path="/" element={<Home />} />
+          <Route path="/sign-up" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
           <Route
             path="/create-trip"
             element={

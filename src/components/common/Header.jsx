@@ -12,7 +12,8 @@ const Header = () => {
   const { openSignUp } = useClerk();
   const createTrip = () => {
     if (!user) {
-      openSignUp();
+      navigate("/sign-up");
+      return;
     }
     navigate("/create-trip");
   };
@@ -102,6 +103,7 @@ const Header = () => {
               <UserButton />
             )}
           </div>
+          {/* Mob button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="flex lg:hidden cursor-pointer hover:bg-secondary p-2 rounded-md"

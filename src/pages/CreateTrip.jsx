@@ -10,17 +10,22 @@ import { useNavigate } from "react-router-dom";
 import { TripContext } from "../provider/TripContext";
 import Loader from "../components/common/Loader";
 import { generateTripWithAI } from "../services/AiModel";
-import { doc, setDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
 
 const CreateTrip = () => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  // const [openDialog, setOpenDialog] = useState(false);
   const { user } = useUser();
   const { openSignUp } = useClerk();
   const navigate = useNavigate();
-  const { tripDetails } = useContext(TripContext);
+  const { tripDetails, setTripDetails } = useContext(TripContext);
 
   console.log(tripDetails);
   const handleBack = () => {
@@ -50,10 +55,35 @@ const CreateTrip = () => {
     if (tripDetails.duration > 5) {
       return toast.error("На безкоштовному тарифі AI генерує максимум 5 днів");
     }
-    if (!user) {
+    const userRef = doc(db, "users", user.id);
+    const userSnap = await getDoc(userRef);
+    if (!userSnap.exists()) {
       openSignUp();
       return;
     }
+    const userData = userSnap.data();
+    const lastTripGenerated = userData?.lastTripGenerationAt;
+    // console.log("Last trip generated", lastTripGenerated);
+    if (userData?.plan === "free" && lastTripGenerated) {
+      const now = new Date();
+      const lastGenerated = lastTripGenerated.toDate();
+      // console.log("Останній тріп", lastGenerated);
+      // console.log("Час зараз", now);
+      const diffHours = (now - lastGenerated) / (60 * 60 * 1000);
+      // console.log("Різниця генерацій", diffHours);
+      // console.log("Різниця годин", Math.ceil(24 - diffHours));
+      if (diffHours < 24) {
+        const remainihgHours = Math.ceil(24 - diffHours);
+        toast.warning(
+          `Ви можете згенерувати новий маршрут через ${remainihgHours} год.`,
+        );
+        // console.log(
+        //   `Ви можете згенерувати новий маршрут через ${remainihgHours} год.`,
+        // );
+      }
+      return;
+    }
+
     setLoading(true);
     const DYNAMIC_PROMPT = `Generate a Travel Plan from origin: ${tripDetails?.origin} to destination: ${tripDetails?.destination}, with startDate ${tripDetails?.startDate} and endDate ${tripDetails?.endDate} for ${tripDetails?.duration} days for ${tripDetails?.travelers} for a ${tripDetails?.budget} budget with a flight details, airlines, flight price with a booking url, hotels options with list of 3-5 hotels with hotel name, hotel address, price only per 1 night, rating, descriptions, booking url, and places to visit nearby with place name, address, details, price ,ticket pricing, booking url, time to travel each of the locations for 1 day plan with best time to visit. Please include also in the itinerary real restaurants or caffe where people can have a breakfast, launch and dinner with only real place name, address and price. Plan please itinerary activities time from 09:00 - 18:00. Don’t include in itineraty flight and hotel, start straightaway from activities. And calculate approximately price for trip for one person including flight price, hotel price for all days and activities price. Geve descriptions for tripNote, hotel description, activity and activities details, howToGetTo and transfer details(max 1 sentence) in Ukrainian language, other data in english. hotelName and placeName only data name in english without any description.
 1.Search flights at kiwi.com and add Bookin url www.kiwi.com/deep?affilid=ozkarablogaitripplanner&currency=EUR&departure=anytime&lang=en&return=anytime&returnFromDifferentAirport=false&returnToDifferentAirport=false. Only change destination and dates for trip, for example for Prague from 16 March to 18 March www.kiwi.com/deep?affilid=ozkarablogaitripplanner&currency=EUR&departure=2026-03-16_2026-03-16&destination=prague_cz&lang=en&return=2026-03-18_2026-03-18&returnFromDifferentAirport=false&returnToDifferentAirport=false
@@ -71,6 +101,15 @@ const CreateTrip = () => {
     try {
       const response = await generateTripWithAI(DYNAMIC_PROMPT);
       await saveToDB(response);
+      setTripDetails({
+        origin: "",
+        destination: "",
+        startDate: "",
+        endDate: "",
+        duration: "",
+        budget: "",
+        travelers: "",
+      });
     } catch (error) {
       setLoading(false);
       // console.error("Error generating trip:", error);
@@ -85,13 +124,19 @@ const CreateTrip = () => {
 
   const saveToDB = async (trip) => {
     const userEmail = user?.primaryEmailAddress?.emailAddress;
-    console.log(userEmail);
+    const userId = user?.id;
+    // console.log(userEmail);
     const docId = Date.now().toString();
     await setDoc(doc(db, "trips", docId), {
       userSelection: tripDetails,
       tripData: trip,
+      userId: userId,
       userEmail: userEmail,
       id: docId,
+      createdAt: serverTimestamp(),
+    });
+    await updateDoc(doc(db, "users", userId), {
+      lastTripGenerationAt: serverTimestamp(),
     });
     setLoading(false);
     toast.success("Подорож успішно створено!");

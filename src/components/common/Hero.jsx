@@ -1,19 +1,20 @@
 import { Play } from "lucide-react";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
-import { useClerk, useUser } from "@clerk/react";
+import { useUser } from "@clerk/react";
 
 const Hero = () => {
   const navigate = useNavigate();
   const { user } = useUser();
-  const { openSignUp } = useClerk();
+
   const createTrip = () => {
     if (!user) {
-      openSignUp();
+      navigate("/sign-up");
       return;
     }
     navigate("/create-trip");
   };
+
   return (
     <section className="relative overflow-hidden bg-linear-to-br from-background to-primary/20 pt-10 pb-10 lg:pb-20">
       <img
@@ -35,9 +36,13 @@ const Hero = () => {
             <span className="text-accent">AI</span>
           </h1>
           <p>
-            <b className="text-accent">Smarty</b> створює персоналізований
+            <b className="text-accent">Smarty AI</b> створює персоналізований
             маршрут, знаходить авіаквитки, готелі та рахує бюджет автоматично
           </p>
+          <p className="text-sm text-gray-600 mt-2">
+            * На безкоштовному тарифі ви можете генерувати 1 маршрут на день
+          </p>
+
           <div className="pt-10 gap-4 flex flex-col md:flex-row">
             <Button
               onClick={() => createTrip()}

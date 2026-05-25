@@ -14,7 +14,7 @@ const getPlaceDetails = async (data) =>
 export const getPlacePhoto = async (textQuery) => {
   if (!textQuery) return null;
   const res = await getPlaceDetails({ textQuery });
-  const photoName = res?.data?.places[0]?.photos[4]?.name;
+  const photoName = res?.data?.places[0]?.photos[0]?.name;
 
   if (!photoName) return null;
   const photoUrl = `https://places.googleapis.com/v1/${photoName}/media?key=${placeApiKey}&maxHeightPx=1080&maxWidthPx=1920`;
