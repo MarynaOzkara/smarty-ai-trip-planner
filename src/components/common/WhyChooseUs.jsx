@@ -32,7 +32,7 @@ const CHOOSE_OPTIONS = [
 
 const WhyChooseUs = () => {
   return (
-    <section className="py-10 lg:py-20 bg-background">
+    <section className="py-10 lg:py-20 bg-secondary-foreground">
       <div className="max-padd-container">
         <h2 className="text-center">
           Чому обирають <span className="text-accent">Smarty?</span>
@@ -41,7 +41,7 @@ const WhyChooseUs = () => {
           {CHOOSE_OPTIONS.map((item) => (
             <div
               key={item.id}
-              className="flex flex-col items-center gap-4 p-6 md:flex-row rounded-2xl hover:scale-105 shadow-sm"
+              className="bg-background flex flex-col items-center gap-4 p-6 md:flex-row rounded-2xl hover:scale-105 shadow-sm"
             >
               <div>{item.icon}</div>
               <div>

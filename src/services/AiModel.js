@@ -14,12 +14,13 @@ const chat = ai.chats.create({
 3.Search tickets for activities at https://tiqets.com. When you make a booking url use always this link https://tiqets.tpo.li/BxxMbWkW.
 4.If you can't find booking url leave emty string, do not write N/A or any other text, only empty string. For example, if you can't find booking url for restaurant, it should be "bookingUrl": "".
 5.Only, if origin city located in Ukraine, please search flights from Poland, Romania, Slovakia, Hungary, Moldova. For example, if origin is Kyiv, search flights from Warsaw, Budapest, Bratislava, Bucharest, Chisinau. Add in trip buss from origin city to nearest city with flights and add in strict schema transferFromOrigin: booking url, company name and price for bus tickets search at https://infobus.eu/.
-6.If origin city located in Ukraine and destination city located in Ukraine don't add flight, only add transferToDestination with with strict schema transferToDestination with booking url, company name and price for bus tickets search at https://infobus.eu/.
-7.If origin or destination city located in Russia, Belarus don't make any Travel Plan and return JSON response with tripNote: "Sorry, we cannot generate a travel plan for this destination due to current geopolitical situation."
-8.If destination city in Europe has no flights, please search for nearby cities with flights and add to trip transfer from airport to destination city with strict schema transferToDestination with booking url, company name and price for bus tickets search at https://www.omio.com/. For example, if destination is Sintra, Portugal, search for flights to Lisbon and transfer from Lisbon to Sintra.
-9.If travelers with pets, please search for pet friendly options and add pet-friendly hotels, airlines and activities.
-10.All prices geve integer.
-11.Generate and return a strict JSON response only`,
+6.If origin city located in Ukraine and destination city located in Ukraine don't add flight, only add transferToDestination with strict schema transferToDestination with booking url, company name and price for bus tickets search at https://infobus.eu/.
+7.If destination city located in Ukraine search hotels at https://hotels24.ua?aid=371. 
+8.If origin or destination city located in Russia, Belarus don't make any Travel Plan and return JSON response with tripNote: "Sorry, we cannot generate a travel plan for this destination due to current geopolitical situation."
+9.If destination city in Europe has no flights, please search for nearby cities with flights and add to trip transfer from airport to destination city with strict schema transferToDestination with booking url, company name and price for bus tickets search at https://www.omio.com/. For example, if destination is Sintra, Portugal, search for flights to Lisbon and transfer from Lisbon to Sintra.
+10.If travelers with pets, please search for pet friendly options and add pet-friendly hotels, airlines and activities.
+11.All prices geve integer.
+12.Generate and return a strict JSON response only`,
         },
       ],
     },

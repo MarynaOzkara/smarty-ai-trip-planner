@@ -12,19 +12,34 @@ import { uk } from "date-fns/locale";
 import moment from "moment/moment";
 import "moment/locale/uk";
 import { TripContext } from "../../provider/TripContext";
+import { useAuth } from "@clerk/react";
+import { toast } from "sonner";
 
 moment.locale("uk");
 
 export function SelectDates() {
   const { tripDetails, setTripDetails } = useContext(TripContext);
   const [date, setDate] = useState();
-
+  const { has } = useAuth();
+  const hasProPlan = has({
+    plan: "smarty_ai_pro",
+  });
+  const maxDays = hasProPlan ? 30 : 5;
   const startDate = date?.from ? moment(date?.from).format("DD/MM/YYYY") : "";
   const endDate = date?.to ? moment(date?.to).format("DD/MM/YYYY") : "";
   const duration = moment(date?.to).diff(moment(date?.from), "days") + 1 || "";
   // console.log(startDate, endDate, duration);
 
   useEffect(() => {
+    if (duration > maxDays) {
+      toast.error(
+        hasProPlan
+          ? "Максимальна тривалість подорожі для Pro — 30 днів"
+          : "На безкоштовному тарифі доступно максимум 5 днів",
+      );
+
+      return;
+    }
     if (startDate && endDate) {
       setTripDetails({
         ...tripDetails,
@@ -33,7 +48,15 @@ export function SelectDates() {
         duration: duration,
       });
     }
-  }, [setTripDetails, tripDetails, startDate, endDate, duration]);
+  }, [
+    setTripDetails,
+    tripDetails,
+    startDate,
+    endDate,
+    duration,
+    maxDays,
+    hasProPlan,
+  ]);
 
   return (
     <Field className="mx-auto w-150">
@@ -63,7 +86,7 @@ export function SelectDates() {
           <Calendar
             mode="range"
             min={1}
-            max={4}
+            max={maxDays}
             locale={uk}
             disabled={(date) => date < new Date()}
             selected={date}

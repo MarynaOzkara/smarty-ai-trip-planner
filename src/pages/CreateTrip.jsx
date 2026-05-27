@@ -5,7 +5,7 @@ import SelectBudget from "../components/common/SelectBudget";
 import SelectTravelers from "../components/common/SelectTravelers";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
-import { useClerk, useUser } from "@clerk/react";
+import { useAuth, useClerk, useUser } from "@clerk/react";
 import { useNavigate } from "react-router-dom";
 import { TripContext } from "../provider/TripContext";
 import Loader from "../components/common/Loader";
@@ -22,12 +22,14 @@ import { db } from "../services/firebaseConfig";
 const CreateTrip = () => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+  const { has } = useAuth();
   const { user } = useUser();
   const { openSignUp } = useClerk();
   const navigate = useNavigate();
   const { tripDetails, setTripDetails } = useContext(TripContext);
-
-  console.log(tripDetails);
+  const hasProPlan = has({ plan: "smarty_ai_pro" });
+  console.log(hasProPlan);
+  // console.log(tripDetails);
   const handleBack = () => {
     if (step > 1) {
       setStep(step - 1);
@@ -52,7 +54,7 @@ const CreateTrip = () => {
     ) {
       return toast.error("Будь ласка заповніть усі необхідні поля");
     }
-    if (tripDetails.duration > 5) {
+    if (!hasProPlan && tripDetails.duration > 5) {
       return toast.error("На безкоштовному тарифі AI генерує максимум 5 днів");
     }
     const userRef = doc(db, "users", user.id);
@@ -62,9 +64,9 @@ const CreateTrip = () => {
       return;
     }
     const userData = userSnap.data();
-    const lastTripGenerated = userData?.lastTripGenerationAt;
+    const lastTripGenerated = userData?.lastTripGeneratedAt;
     // console.log("Last trip generated", lastTripGenerated);
-    if (userData?.plan === "free" && lastTripGenerated) {
+    if (!hasProPlan && lastTripGenerated) {
       const now = new Date();
       const lastGenerated = lastTripGenerated.toDate();
       // console.log("Останній тріп", lastGenerated);
@@ -80,8 +82,8 @@ const CreateTrip = () => {
         // console.log(
         //   `Ви можете згенерувати новий маршрут через ${remainihgHours} год.`,
         // );
+        return;
       }
-      return;
     }
 
     setLoading(true);
@@ -135,9 +137,12 @@ const CreateTrip = () => {
       id: docId,
       createdAt: serverTimestamp(),
     });
-    await updateDoc(doc(db, "users", userId), {
-      lastTripGenerationAt: serverTimestamp(),
-    });
+    if (!hasProPlan) {
+      await updateDoc(doc(db, "users", userId), {
+        lastTripGeneratedAt: serverTimestamp(),
+      });
+    }
+
     setLoading(false);
     toast.success("Подорож успішно створено!");
     navigate(`/trip/${docId}`);

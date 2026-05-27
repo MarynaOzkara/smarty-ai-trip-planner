@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/SignUp";
 import { useUser } from "@clerk/react";
 import { createNewUser } from "./services/createNewUser";
+import Price from "./pages/Price";
 
 const App = () => {
   const { user, isLoaded, isSignedIn } = useUser();
@@ -43,6 +44,7 @@ const App = () => {
           <Route index path="/" element={<Home />} />
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/price" element={<Price />} />
           <Route
             path="/create-trip"
             element={

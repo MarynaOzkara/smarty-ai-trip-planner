@@ -11,9 +11,9 @@ export const createNewUser = async (user) => {
       return;
     }
     await setDoc(userRef, {
+      firstName: user.firstName,
       email: user?.primaryEmailAddress?.emailAddress,
-      plan: "free",
-      lastTripGenerationAt: null,
+      lastTripGeneratedAt: null,
     });
     // console.log("User created");
   } catch (error) {

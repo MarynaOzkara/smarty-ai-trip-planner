@@ -47,8 +47,8 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link to={"https://smarty-travels.com/turystychni-servisy/"}>
-                <h5>Туристичні Сервіси</h5>
+              <Link to={"/price"}>
+                <h5>Наші ціни</h5>
               </Link>
             </li>
             <li>
@@ -127,8 +127,8 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link to={"https://smarty-travels.com/turystychni-servisy/"}>
-                <h5 className="text-white">Туристичні Сервіси</h5>
+              <Link to={"/price"}>
+                <h5 className="text-white">Наші ціни</h5>
               </Link>
             </li>
             <li>
