@@ -35,7 +35,7 @@ const Loader = () => {
             </div>
             <div>
               <p className="text-xs font-semibold">Готелі</p>
-              <p className="text-xs text-foreground">від 45€/ніч</p>
+              <p className="text-xs text-foreground">від 65€/ніч</p>
             </div>
           </div>
         </motion.div>
@@ -52,7 +52,7 @@ const Loader = () => {
             </div>
             <div>
               <p className="text-xs font-semibold">Авиаквитки</p>
-              <p className="text-xs text-foreground">від 30€</p>
+              <p className="text-xs text-foreground">від 80€</p>
             </div>
           </div>
         </motion.div>
