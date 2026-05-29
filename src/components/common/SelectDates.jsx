@@ -31,32 +31,55 @@ export function SelectDates() {
   // console.log(startDate, endDate, duration);
 
   useEffect(() => {
-    if (duration > maxDays) {
+    // Инициализация локального состояния календаря из контекста (если даты уже заданы)
+    if (tripDetails?.startDate && tripDetails?.endDate) {
+      setDate({
+        from: moment(tripDetails.startDate, "DD/MM/YYYY").toDate(),
+        to: moment(tripDetails.endDate, "DD/MM/YYYY").toDate(),
+      });
+    } else {
+      setDate(undefined);
+    }
+  }, [tripDetails?.startDate, tripDetails?.endDate]);
+
+  const handleSelect = (selected) => {
+    setDate(selected);
+
+    const s = selected?.from ? moment(selected.from).format("DD/MM/YYYY") : "";
+    const e = selected?.to ? moment(selected.to).format("DD/MM/YYYY") : "";
+    const d =
+      selected?.from && selected?.to
+        ? moment(selected.to).diff(moment(selected.from), "days") + 1
+        : "";
+
+    if (d && d > maxDays) {
       toast.error(
         hasProPlan
           ? "Максимальна тривалість подорожі для Pro — 30 днів"
           : "На безкоштовному тарифі доступно максимум 5 днів",
       );
-
       return;
     }
-    if (startDate && endDate) {
+
+    if (s && e) {
       setTripDetails({
         ...tripDetails,
-        startDate: startDate,
-        endDate: endDate,
-        duration: duration,
+        startDate: s,
+        endDate: e,
+        duration: d,
       });
     }
-  }, [
-    setTripDetails,
-    tripDetails,
-    startDate,
-    endDate,
-    duration,
-    maxDays,
-    hasProPlan,
-  ]);
+  };
+
+  const clearDates = () => {
+    setDate(undefined);
+    setTripDetails({
+      ...tripDetails,
+      startDate: "",
+      endDate: "",
+      duration: "",
+    });
+  };
 
   return (
     <Field className="mx-auto w-150">
@@ -83,17 +106,22 @@ export function SelectDates() {
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            mode="range"
-            min={1}
-            max={maxDays}
-            locale={uk}
-            disabled={(date) => date < new Date()}
-            selected={date}
-            onSelect={setDate}
-            numberOfMonths={1}
-            className="[--cell-size:--spacing(8)] md:[--cell-size:--spacing(9)]"
-          />
+          <div className="p-3">
+            <Calendar
+              mode="range"
+              locale={uk}
+              disabled={(date) => date < new Date()}
+              selected={date}
+              onSelect={handleSelect}
+              numberOfMonths={1}
+              className="[--cell-size:--spacing(8)] md:[--cell-size:--spacing(9)]"
+            />
+            <div className="mt-3 flex justify-end">
+              <Button variant="ghost" onClick={clearDates} className="text-sm">
+                Очистити
+              </Button>
+            </div>
+          </div>
         </PopoverContent>
       </Popover>
     </Field>

@@ -59,7 +59,7 @@ const ActivityCard = ({ activity }) => {
                 <a
                   target="_blank"
                   href={url}
-                  className="flex gap-1 items-start text-sm text-gray-500"
+                  className="flex gap-1 items-start text-sm line-clamp-2 text-gray-500"
                 >
                   <Map width={15} height={15} />
                   {activity?.address}
