@@ -42,7 +42,7 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link to={"https://smarty-travels.com/pro-nas/"}>
+              <Link to={"https://smarty-travels.com/pro-nas/"} target="_blank">
                 <h5>Про Hас</h5>
               </Link>
             </li>
@@ -52,17 +52,23 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link to={"https://smarty-travels.com/napryamki/"}>
+              <Link
+                to={"https://smarty-travels.com/napryamki/"}
+                target="_blank"
+              >
                 <h5>Напрямки</h5>
               </Link>
             </li>
             <li>
-              <Link to={"https://smarty-travels.com/turystychni-porady/"}>
+              <Link
+                to={"https://smarty-travels.com/turystychni-porady/"}
+                target="_blank"
+              >
                 <h5>Туристичні Поради</h5>
               </Link>
             </li>
             <li>
-              <Link to={"https://smarty-travels.com/blog/"}>
+              <Link to={"https://smarty-travels.com/blog/"} target="_blank">
                 <h5>Блог</h5>
               </Link>
             </li>
@@ -117,32 +123,48 @@ const Header = () => {
         >
           <ul className="w-svw h-screen bg-secondary px-8 py-16 flex flex-col gap-6">
             <li>
-              <Link to={"/"} className="">
+              <Link to={"/"} className="" onClick={() => setIsOpen(false)}>
                 <h5 className="text-white">Головна</h5>
               </Link>
             </li>
             <li>
-              <Link to={"https://smarty-travels.com/pro-nas/"}>
+              <Link
+                to={"https://smarty-travels.com/pro-nas/"}
+                target="_blank"
+                onClick={() => setIsOpen(false)}
+              >
                 <h5 className="text-white">Про Hас</h5>
               </Link>
             </li>
             <li>
-              <Link to={"/price"}>
+              <Link to={"/price"} onClick={() => setIsOpen(false)}>
                 <h5 className="text-white">Наші ціни</h5>
               </Link>
             </li>
             <li>
-              <Link to={"https://smarty-travels.com/napryamki/"}>
+              <Link
+                to={"https://smarty-travels.com/napryamki/"}
+                target="_blank"
+                onClick={() => setIsOpen(false)}
+              >
                 <h5 className="text-white">Напрямки</h5>
               </Link>
             </li>
             <li>
-              <Link to={"https://smarty-travels.com/turystychni-porady/"}>
+              <Link
+                to={"https://smarty-travels.com/turystychni-porady/"}
+                target="_blank"
+                onClick={() => setIsOpen(false)}
+              >
                 <h5 className="text-white">Туристичні Поради</h5>
               </Link>
             </li>
             <li>
-              <Link to={"https://smarty-travels.com/blog/"}>
+              <Link
+                to={"https://smarty-travels.com/blog/"}
+                target="_blank"
+                onClick={() => setIsOpen(false)}
+              >
                 <h5 className="text-white">Блог</h5>
               </Link>
             </li>
