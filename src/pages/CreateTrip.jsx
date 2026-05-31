@@ -22,12 +22,12 @@ import { db } from "../services/firebaseConfig";
 const CreateTrip = () => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  const { has } = useAuth();
+  // const { has } = useAuth();
   const { user } = useUser();
   const { openSignUp } = useClerk();
   const navigate = useNavigate();
   const { tripDetails, setTripDetails } = useContext(TripContext);
-  const hasProPlan = has({ plan: "smarty_ai_pro" });
+  // const hasProPlan = has({ plan: "smarty_ai_pro" });
   // console.log(hasProPlan);
   // console.log(tripDetails);
   const handleBack = () => {
@@ -54,8 +54,9 @@ const CreateTrip = () => {
     ) {
       return toast.error("Будь ласка заповніть усі необхідні поля");
     }
-    if (!hasProPlan && tripDetails.duration > 5) {
-      return toast.error("На безкоштовному тарифі AI генерує максимум 5 днів");
+    if (tripDetails.duration > 5) {
+      toast.error("На безкоштовному тарифі AI генерує максимум 5 днів");
+      return;
     }
     const userRef = doc(db, "users", user.id);
     const userSnap = await getDoc(userRef);
@@ -66,7 +67,7 @@ const CreateTrip = () => {
     const userData = userSnap.data();
     const lastTripGenerated = userData?.lastTripGeneratedAt;
     // console.log("Last trip generated", lastTripGenerated);
-    if (!hasProPlan && lastTripGenerated) {
+    if (lastTripGenerated) {
       const now = new Date();
       const lastGenerated = lastTripGenerated.toDate();
       // console.log("Останній тріп", lastGenerated);
@@ -138,11 +139,10 @@ const CreateTrip = () => {
       id: docId,
       createdAt: serverTimestamp(),
     });
-    if (!hasProPlan) {
-      await updateDoc(doc(db, "users", userId), {
-        lastTripGeneratedAt: serverTimestamp(),
-      });
-    }
+
+    await updateDoc(doc(db, "users", userId), {
+      lastTripGeneratedAt: serverTimestamp(),
+    });
 
     setLoading(false);
     toast.success("Подорож успішно створено!");
@@ -265,6 +265,7 @@ const CreateTrip = () => {
                   (step === 1 && !tripDetails.destination) ||
                   (step === 2 && !tripDetails.startDate) ||
                   (step === 2 && !tripDetails.endDate) ||
+                  (step === 2 && tripDetails.duration > 5) ||
                   (step === 3 && !tripDetails.budget) ||
                   (step === 4 && !tripDetails.travelers)
                 }

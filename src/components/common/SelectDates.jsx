@@ -12,7 +12,7 @@ import { uk } from "date-fns/locale";
 import moment from "moment/moment";
 import "moment/locale/uk";
 import { TripContext } from "../../provider/TripContext";
-import { useAuth } from "@clerk/react";
+// import { useAuth } from "@clerk/react";
 import { toast } from "sonner";
 
 moment.locale("uk");
@@ -20,15 +20,11 @@ moment.locale("uk");
 export function SelectDates() {
   const { tripDetails, setTripDetails } = useContext(TripContext);
   const [date, setDate] = useState();
-  const { has } = useAuth();
-  const hasProPlan = has({
-    plan: "smarty_ai_pro",
-  });
-  const maxDays = hasProPlan ? 30 : 5;
-  const startDate = date?.from ? moment(date?.from).format("DD/MM/YYYY") : "";
-  const endDate = date?.to ? moment(date?.to).format("DD/MM/YYYY") : "";
-  const duration = moment(date?.to).diff(moment(date?.from), "days") + 1 || "";
-  // console.log(startDate, endDate, duration);
+  // const { has } = useAuth();
+  // const hasProPlan = has({
+  //   plan: "smarty_ai_pro",
+  // });
+  const maxDays = 5;
 
   useEffect(() => {
     // Инициализация локального состояния календаря из контекста (если даты уже заданы)
@@ -53,11 +49,7 @@ export function SelectDates() {
         : "";
 
     if (d && d > maxDays) {
-      toast.error(
-        hasProPlan
-          ? "Максимальна тривалість подорожі для Pro — 30 днів"
-          : "На безкоштовному тарифі доступно максимум 5 днів",
-      );
+      toast.error("На безкоштовному тарифі доступно максимум 5 днів");
       return;
     }
 
