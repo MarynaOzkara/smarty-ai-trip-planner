@@ -23,14 +23,18 @@ const Transport = ({ trip }) => {
                   {trip?.tripData?.transferFromOrigin?.price} €
                 </p>
               </div>
-              <a
-                href={trip?.tripData?.transferFromOrigin?.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cursor-pointer px-4 py-2 rounded-xl bg-accent hover:bg-secondary transition-colors"
-              >
-                <p className="text-white">Купити</p>
-              </a>
+              {trip?.tripData?.transferFromOrigin?.bookingUrl === "" ? (
+                <></>
+              ) : (
+                <a
+                  href={trip?.tripData?.transferFromOrigin?.bookingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cursor-pointer px-4 py-2 rounded-xl bg-accent hover:bg-secondary transition-colors"
+                >
+                  <p className="text-white">Купити</p>
+                </a>
+              )}
             </div>
           </div>
         )}
@@ -90,14 +94,18 @@ const Transport = ({ trip }) => {
                   {trip?.tripData?.transferToDestination?.price} €
                 </p>
               </div>
-              <a
-                href={trip?.tripData?.transferToDestination?.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cursor-pointer px-4 py-2 rounded-xl bg-accent hover:bg-secondary transition-colors"
-              >
-                <p className="text-white">Купити</p>
-              </a>
+              {trip?.tripData?.transferToDestination?.bookingUrl === "" ? (
+                <></>
+              ) : (
+                <a
+                  href={trip?.tripData?.transferToDestination?.bookingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cursor-pointer px-4 py-2 rounded-xl bg-accent hover:bg-secondary transition-colors"
+                >
+                  <p className="text-white">Купити</p>
+                </a>
+              )}
             </div>
           </div>
         )}
