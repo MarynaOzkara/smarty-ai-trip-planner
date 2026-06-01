@@ -1,15 +1,16 @@
 import { Play } from "lucide-react";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "@clerk/react";
+import { useClerk, useUser } from "@clerk/react";
 
 const Hero = () => {
   const navigate = useNavigate();
   const { user } = useUser();
+  const { openSignIn } = useClerk();
 
   const createTrip = () => {
     if (!user) {
-      navigate("/sign-up");
+      openSignIn();
       return;
     }
     navigate("/create-trip");

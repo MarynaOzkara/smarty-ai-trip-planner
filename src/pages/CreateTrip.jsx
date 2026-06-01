@@ -24,7 +24,7 @@ const CreateTrip = () => {
   const [loading, setLoading] = useState(false);
   // const { has } = useAuth();
   const { user } = useUser();
-  const { openSignUp } = useClerk();
+  const { openSignIn } = useClerk();
   const navigate = useNavigate();
   const { tripDetails, setTripDetails } = useContext(TripContext);
   // const hasProPlan = has({ plan: "smarty_ai_pro" });
@@ -61,7 +61,7 @@ const CreateTrip = () => {
     const userRef = doc(db, "users", user.id);
     const userSnap = await getDoc(userRef);
     if (!userSnap.exists()) {
-      openSignUp();
+      openSignIn();
       return;
     }
     const userData = userSnap.data();
@@ -80,9 +80,7 @@ const CreateTrip = () => {
         toast.warning(
           `Ви можете згенерувати новий маршрут через ${remainihgHours} год.`,
         );
-        // console.log(
-        //   `Ви можете згенерувати новий маршрут через ${remainihgHours} год.`,
-        // );
+
         return;
       }
     }

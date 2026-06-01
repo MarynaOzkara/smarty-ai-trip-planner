@@ -9,10 +9,10 @@ const Header = () => {
   const navigate = useNavigate();
   const { user } = useUser();
   const [isOpen, setIsOpen] = useState(false);
-  const { openSignUp } = useClerk();
+  const { openSignIn } = useClerk();
   const createTrip = () => {
     if (!user) {
-      navigate("/sign-up");
+      openSignIn();
       return;
     }
     navigate("/create-trip");
@@ -100,7 +100,7 @@ const Header = () => {
           <div className="flex">
             {!user ? (
               <Button
-                onClick={() => openSignUp()}
+                onClick={() => openSignIn()}
                 className="cursor-pointer hover:bg-secondary w-10 h-10 rounded-full"
               >
                 <User2 />

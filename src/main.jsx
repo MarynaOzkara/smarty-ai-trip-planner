@@ -8,11 +8,7 @@ const publishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <ClerkProvider
-      signUpUrl="/sign-up"
-      signInUrl="/login"
-      publishableKey={publishableKey}
-    >
+    <ClerkProvider publishableKey={publishableKey}>
       <App />
     </ClerkProvider>
   </BrowserRouter>,
