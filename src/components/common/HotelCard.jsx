@@ -51,7 +51,7 @@ const HotelCard = ({ hotel }) => {
           <div className="flex-between mt-2">
             <p className="text-gray-600 font-bold">Від {hotel?.price} €</p>
             <a
-              href=""
+              href={hotel?.bookingUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="cursor-pointer px-4 py-2 rounded-xl bg-accent hover:bg-secondary transition-colors"

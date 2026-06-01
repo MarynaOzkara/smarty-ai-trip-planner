@@ -71,14 +71,18 @@ const ActivityCard = ({ activity }) => {
                   <p className="text-gray-600 mt-1 flex items-center gap-2">
                     <Ticket /> <b>{activity?.ticketPricing} €</b>
                   </p>
-                  <a
-                    href={activity?.bookingUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="cursor-pointer px-4 py-2 rounded-xl bg-accent hover:bg-secondary transition-colors"
-                  >
-                    <p className="text-white">Купити квиток</p>
-                  </a>
+                  {activity?.bookingUrl === "" ? (
+                    <></>
+                  ) : (
+                    <a
+                      href={activity?.bookingUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cursor-pointer px-4 py-2 rounded-xl bg-accent hover:bg-secondary transition-colors"
+                    >
+                      <p className="text-white">Купити квиток</p>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

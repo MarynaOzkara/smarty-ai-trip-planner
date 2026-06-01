@@ -18,7 +18,7 @@ const Loader = () => {
         >
           <img
             className="w-55 py-15 md:py-5 md:w-65 lg:w-80"
-            src="/public/SmartyAI.png"
+            src="/SmartyAI.png"
             alt="Smarty AI"
           />
         </motion.div>
