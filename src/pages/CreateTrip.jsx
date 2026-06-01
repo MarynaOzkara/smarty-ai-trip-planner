@@ -5,7 +5,7 @@ import SelectBudget from "../components/common/SelectBudget";
 import SelectTravelers from "../components/common/SelectTravelers";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
-import { useAuth, useClerk, useUser } from "@clerk/react";
+import { useClerk, useUser } from "@clerk/react";
 import { useNavigate } from "react-router-dom";
 import { TripContext } from "../provider/TripContext";
 import Loader from "../components/common/Loader";
@@ -119,7 +119,7 @@ const CreateTrip = () => {
       toast.error(
         error.message?.includes("429")
           ? "Забагато запитів до AI. Спробуйте ще раз через хвилину."
-          : "Сталася помилка при генерації подорожі. Спробуйте ще раз.",
+          : "Сталася помилка при генерації подорожі. Спробуйте ще раз пізніше.",
       );
       navigate("/create-trip");
     }
