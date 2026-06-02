@@ -20,7 +20,7 @@ const SelectPlace = ({ name }) => {
     setPlace(city);
     setTripDetails({ ...tripDetails, [name]: city });
   };
-
+ 
   return (
     <>
       {isLoaded && (

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -19,28 +19,22 @@ moment.locale("uk");
 
 export function SelectDates() {
   const { tripDetails, setTripDetails } = useContext(TripContext);
-  const [date, setDate] = useState();
+  const [date, setDate] = useState(() => {
+    if (tripDetails?.startDate && tripDetails?.endDate) {
+      return {
+        from: moment(tripDetails.startDate, "DD/MM/YYYY").toDate(),
+        to: moment(tripDetails.endDate, "DD/MM/YYYY").toDate(),
+      };
+    }
+    return undefined;
+  });
   // const { has } = useAuth();
   // const hasProPlan = has({
   //   plan: "smarty_ai_pro",
   // });
   const maxDays = 5;
 
-  useEffect(() => {
-    // Инициализация локального состояния календаря из контекста (если даты уже заданы)
-    if (tripDetails?.startDate && tripDetails?.endDate) {
-      setDate({
-        from: moment(tripDetails.startDate, "DD/MM/YYYY").toDate(),
-        to: moment(tripDetails.endDate, "DD/MM/YYYY").toDate(),
-      });
-    } else {
-      setDate(undefined);
-    }
-  }, [tripDetails?.startDate, tripDetails?.endDate]);
-
   const handleSelect = (selected) => {
-    setDate(selected);
-
     const s = selected?.from ? moment(selected.from).format("DD/MM/YYYY") : "";
     const e = selected?.to ? moment(selected.to).format("DD/MM/YYYY") : "";
     const d =
@@ -50,8 +44,17 @@ export function SelectDates() {
 
     if (d && d > maxDays) {
       toast.error("На безкоштовному тарифі доступно максимум 5 днів");
+      setDate({ from: selected?.from, to: undefined });
+      setTripDetails({
+        ...tripDetails,
+        startDate: "",
+        endDate: "",
+        duration: "",
+      });
       return;
     }
+
+    setDate(selected);
 
     if (s && e) {
       setTripDetails({
@@ -61,6 +64,24 @@ export function SelectDates() {
         duration: d,
       });
     }
+  };
+
+  const isDateDisabled = (currentDate) => {
+    const today = moment().startOf("day").toDate();
+
+    if (currentDate < today) {
+      return true;
+    }
+
+    if (date?.from && !date?.to) {
+      const maxEndDate = moment(date.from)
+        .add(maxDays - 1, "days")
+        .endOf("day")
+        .toDate();
+      return currentDate > maxEndDate;
+    }
+
+    return false;
   };
 
   const clearDates = () => {
@@ -102,7 +123,7 @@ export function SelectDates() {
             <Calendar
               mode="range"
               locale={uk}
-              disabled={(date) => date < new Date()}
+              disabled={isDateDisabled}
               selected={date}
               onSelect={handleSelect}
               numberOfMonths={1}

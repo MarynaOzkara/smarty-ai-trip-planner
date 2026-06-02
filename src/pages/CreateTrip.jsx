@@ -36,6 +36,9 @@ const CreateTrip = () => {
     }
   };
   const handleNext = () => {
+    const durationNum = Number(tripDetails?.duration || 0);
+    if (durationNum > 5) return;
+
     if (step < 4) {
       setStep(step + 1);
     }
@@ -80,7 +83,15 @@ const CreateTrip = () => {
         toast.warning(
           `Ви можете згенерувати новий маршрут через ${remainihgHours} год.`,
         );
-
+        setTripDetails({
+          origin: "",
+          destination: "",
+          startDate: "",
+          endDate: "",
+          duration: "",
+          budget: "",
+          travelers: "",
+        });
         return;
       }
     }
@@ -149,6 +160,29 @@ const CreateTrip = () => {
   if (loading) {
     return <Loader />;
   }
+
+  const parseDate = (dateStr) => {
+    if (!dateStr) return null;
+    const [day, month, year] = dateStr.split("/").map(Number);
+    return new Date(year, month - 1, day);
+  };
+
+  const durationFromDates =
+    tripDetails?.startDate && tripDetails?.endDate
+      ? Math.floor(
+          (parseDate(tripDetails.endDate) - parseDate(tripDetails.startDate)) /
+            (1000 * 60 * 60 * 24),
+        ) + 1
+      : 0;
+
+  const durationNum = Number(tripDetails?.duration || durationFromDates || 0);
+  const isDurationTooLong = durationNum > 5;
+  const isNextDisabled =
+    isDurationTooLong ||
+    (step === 1 && (!tripDetails.origin || !tripDetails.destination)) ||
+    (step === 2 && (!tripDetails.startDate || !tripDetails.endDate)) ||
+    (step === 3 && !tripDetails.budget) ||
+    (step === 4 && !tripDetails.travelers);
 
   return (
     <section className="bg-secondary-foreground pt-10 pb-20 xl:pb-30">
@@ -256,26 +290,25 @@ const CreateTrip = () => {
               >
                 Назад
               </button>
-              <button
-                disabled={
-                  (step === 1 && !tripDetails.origin) ||
-                  (step === 1 && !tripDetails.destination) ||
-                  (step === 2 && !tripDetails.startDate) ||
-                  (step === 2 && !tripDetails.endDate) ||
-                  (step === 2 && tripDetails.duration > 5) ||
-                  (step === 3 && !tripDetails.budget) ||
-                  (step === 4 && !tripDetails.travelers)
-                }
-                className={`flex items-center px-8 py-3 rounded-full font-bold text-white transition-all shadow-lg bg-primary cursor-pointer hover:bg-secondary disabled:bg-gray-300 disabled:cursor-not-allowed`}
-                onClick={handleNext}
-              >
-                {step === 4 ? "Згенерувати" : "Далі"}
-                {step === 4 ? (
-                  <CheckCircle className="ml-2 w-5 h-5" />
-                ) : (
-                  <ArrowRight className="ml-2 w-5 h-5" />
+              <div className="flex flex-col items-end">
+                <button
+                  disabled={isNextDisabled}
+                  className={`flex items-center px-8 py-3 rounded-full font-bold text-white transition-all shadow-lg ${isNextDisabled ? "bg-gray-300 cursor-not-allowed opacity-70" : "bg-primary hover:bg-secondary"}`}
+                  onClick={handleNext}
+                >
+                  {step === 4 ? "Згенерувати" : "Далі"}
+                  {step === 4 ? (
+                    <CheckCircle className="ml-2 w-5 h-5" />
+                  ) : (
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  )}
+                </button>
+                {isDurationTooLong && (
+                  <p className="text-sm text-red-600 mt-2">
+                    На безкоштовному тарифі доступно максимум 5 днів
+                  </p>
                 )}
-              </button>
+              </div>
             </div>
           </div>
         </div>
