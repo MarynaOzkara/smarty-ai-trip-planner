@@ -25,11 +25,11 @@ const Header = () => {
           <div className="flex-center md:gap-4 lg:gap-4.5">
             <img
               src="/logo.svg"
-              alt="Smarty Travels"
+              alt="AI Smarty Travels"
               className="w-[38px] h-[38px]"
             />
             <h6 className="hidden md:block whitespace-nowrap">
-              Smarty Travels
+              AI Smarty Travels
             </h6>
           </div>
         </Link>
