@@ -37,8 +37,9 @@ const Hero = () => {
             <span className="text-accent">AI</span>
           </h1>
           <p>
-            <b className="text-accent">Smarty AI</b> створює персоналізований
-            маршрут, знаходить авіаквитки, готелі та рахує бюджет автоматично
+            <b className="text-accent">AI Smarty Travels</b> створює
+            персоналізований маршрут, знаходить авіаквитки, готелі та рахує
+            бюджет автоматично
           </p>
           <p className="text-sm text-gray-600 mt-2">
             * На безкоштовному тарифі ви можете генерувати 1 маршрут на день

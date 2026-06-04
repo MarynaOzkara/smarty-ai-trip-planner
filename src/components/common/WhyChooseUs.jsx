@@ -35,7 +35,7 @@ const WhyChooseUs = () => {
     <section className="py-10 lg:py-20 bg-secondary-foreground">
       <div className="max-padd-container">
         <h2 className="text-center">
-          Чому обирають <span className="text-accent">Smarty?</span>
+          Чому обирають <span className="text-accent">AI Smarty Travels?</span>
         </h2>
         <div className="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-10 ">
           {CHOOSE_OPTIONS.map((item) => (

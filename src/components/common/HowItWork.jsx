@@ -2,7 +2,7 @@ const HowItWork = () => {
   return (
     <section id="how-it-work" className="max-padd-container py-10 lg:py-20">
       <h2 className="text-center">
-        Як працює <span className="text-accent">Smarty AI?</span>
+        Як працює <span className="text-accent">AI Smarty Travels?</span>
       </h2>
       <div className="mt-6 md:mt-10 grid gap-6 md:gap-10 grid-cols-1 lg:grid-cols-3">
         <div className="relative h-70 bg-secondary-foreground p-8 rounded-2xl border border-muted-foreground shadow-sm hover:scale-105">
