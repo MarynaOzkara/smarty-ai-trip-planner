@@ -9,7 +9,7 @@ const PriceCardFree = () => {
     <div className="bg-white p-6 max-w-md rounded-2xl shadow-sm border border-gray-100">
       <h3>AI Smarty Free</h3>
       <p className="text-gray-600 mt-6 text-[16px]">
-        Почни планувати подорожі простіше з <b>Smarty Ai Free</b>. Безкоштовний
+        Почни планувати подорожі простіше з <b>AI Smarty Free</b>. Безкоштовний
         план допоможе швидко створити маршрут, знайти квитки, готелі, ресторани
         та екскурсії. Ідеально для тих, хто хоче спробувати наш сервіс.
       </p>
