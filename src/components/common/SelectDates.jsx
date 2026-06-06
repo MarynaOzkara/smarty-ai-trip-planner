@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -12,13 +12,17 @@ import { uk } from "date-fns/locale";
 import moment from "moment/moment";
 import "moment/locale/uk";
 import { TripContext } from "../../provider/TripContext";
-// import { useAuth } from "@clerk/react";
+import { useUser } from "@clerk/react";
 import { toast } from "sonner";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../services/firebaseConfig";
 
 moment.locale("uk");
 
-export function SelectDates() {
+export function SelectDates({ maxDays: maxDaysProp } = {}) {
   const { tripDetails, setTripDetails } = useContext(TripContext);
+  const { user } = useUser();
+  const [maxDays, setMaxDays] = useState(maxDaysProp ?? 5);
   const [date, setDate] = useState(() => {
     if (tripDetails?.startDate && tripDetails?.endDate) {
       return {
@@ -28,11 +32,21 @@ export function SelectDates() {
     }
     return undefined;
   });
-  // const { has } = useAuth();
-  // const hasProPlan = has({
-  //   plan: "smarty_ai_pro",
-  // });
-  const maxDays = 5;
+
+  useEffect(() => {
+    if (maxDaysProp !== undefined) return;
+    const loadUserPlan = async () => {
+      if (!user?.id) return;
+      const userSnap = await getDoc(doc(db, "users", user.id));
+      if (userSnap.exists()) {
+        const userData = userSnap.data();
+        const plan = userData?.plan;
+        setMaxDays(plan === "pro" ? 30 : 5);
+      }
+    };
+    loadUserPlan();
+  }, [user.id]);
+  // console.log("Max days", maxDays);
 
   const handleSelect = (selected) => {
     const s = selected?.from ? moment(selected.from).format("DD/MM/YYYY") : "";
@@ -43,7 +57,11 @@ export function SelectDates() {
         : "";
 
     if (d && d > maxDays) {
-      toast.error("На безкоштовному тарифі доступно максимум 5 днів");
+      toast.error(
+        maxDays === 30
+          ? "На Pro тарифі доступно максимум 30 днів"
+          : "На безкоштовному тарифі доступно максимум 5 днів",
+      );
       setDate({ from: selected?.from, to: undefined });
       setTripDetails({
         ...tripDetails,

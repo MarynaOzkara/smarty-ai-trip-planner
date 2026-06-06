@@ -62,7 +62,7 @@ const ActivityCard = ({ activity }) => {
                   className="flex gap-1 items-start text-sm line-clamp-2 text-gray-500"
                 >
                   <Map width={15} height={15} />
-                  {activity?.address}
+                  <span className="line-clamp-1">{activity?.address}</span>
                 </a>
                 <p className="text-[16px] mt-1 line-clamp-4">
                   {activity?.details}

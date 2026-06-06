@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { SelectDates } from "../components/common/SelectDates";
 import SelectPlace from "../components/common/SelectPlace";
 import SelectBudget from "../components/common/SelectBudget";
@@ -22,14 +22,30 @@ import { db } from "../services/firebaseConfig";
 const CreateTrip = () => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  // const { has } = useAuth();
   const { user } = useUser();
+  const [isProPlan, setIsProPlan] = useState(false);
   const { openSignIn } = useClerk();
   const navigate = useNavigate();
   const { tripDetails, setTripDetails } = useContext(TripContext);
-  // const hasProPlan = has({ plan: "smarty_ai_pro" });
-  // console.log(hasProPlan);
   // console.log(tripDetails);
+  useEffect(() => {
+    const loadPlan = async () => {
+      if (!user?.id) return;
+      try {
+        const userRef = doc(db, "users", user.id);
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          const plan = String(userData?.plan ?? "").trim().toLowerCase();
+          setIsProPlan(plan === "pro");
+        }
+      } catch (e) {
+        console.error("Error loading user plan:", e);
+        // ignore
+      }
+    };
+    loadPlan();
+  }, [user?.id]);
   const handleBack = () => {
     if (step > 1) {
       setStep(step - 1);
@@ -37,7 +53,8 @@ const CreateTrip = () => {
   };
   const handleNext = () => {
     const durationNum = Number(tripDetails?.duration || 0);
-    if (durationNum > 5) return;
+    const allowed = isProPlan ? 30 : 5;
+    if (durationNum > allowed) return;
 
     if (step < 4) {
       setStep(step + 1);
@@ -57,8 +74,13 @@ const CreateTrip = () => {
     ) {
       return toast.error("Будь ласка заповніть усі необхідні поля");
     }
-    if (tripDetails.duration > 5) {
-      toast.error("На безкоштовному тарифі AI генерує максимум 5 днів");
+    const allowed = isProPlan ? 30 : 5;
+    if (tripDetails.duration > allowed) {
+      toast.error(
+        isProPlan
+          ? "На Pro тарифі доступно максимум 30 днів"
+          : "На безкоштовному тарифі AI генерує максимум 5 днів",
+      );
       return;
     }
     const userRef = doc(db, "users", user.id);
@@ -68,9 +90,11 @@ const CreateTrip = () => {
       return;
     }
     const userData = userSnap.data();
+    const plan = String(userData?.plan ?? "").trim().toLowerCase();
+    const isPro = plan === "pro";
     const lastTripGenerated = userData?.lastTripGeneratedAt;
     // console.log("Last trip generated", lastTripGenerated);
-    if (lastTripGenerated) {
+    if (!isPro && lastTripGenerated) {
       const now = new Date();
       const lastGenerated = lastTripGenerated.toDate();
       // console.log("Останній тріп", lastGenerated);
@@ -148,9 +172,16 @@ const CreateTrip = () => {
       createdAt: serverTimestamp(),
     });
 
-    await updateDoc(doc(db, "users", userId), {
-      lastTripGeneratedAt: serverTimestamp(),
-    });
+    const userRef = doc(db, "users", userId);
+    const userSnap = await getDoc(userRef);
+    if (userSnap.exists()) {
+      const userData = userSnap.data();
+      if (userData?.plan === "free") {
+        await updateDoc(userRef, {
+          lastTripGeneratedAt: serverTimestamp(),
+        });
+      }
+    }
 
     setLoading(false);
     toast.success("Подорож успішно створено!");
@@ -176,7 +207,8 @@ const CreateTrip = () => {
       : 0;
 
   const durationNum = Number(tripDetails?.duration || durationFromDates || 0);
-  const isDurationTooLong = durationNum > 5;
+  const allowedDays = isProPlan ? 30 : 5;
+  const isDurationTooLong = durationNum > allowedDays;
   const isNextDisabled =
     isDurationTooLong ||
     (step === 1 && (!tripDetails.origin || !tripDetails.destination)) ||
@@ -248,11 +280,11 @@ const CreateTrip = () => {
                       Крок 2: Коли наступна мандрівка?
                     </h3>
                     <p>
-                      Оберіть дати подорожі(на безкоштовній версії максимум 5
+                      Оберіть дати подорожі (максимум {isProPlan ? 30 : 5}{" "}
                       днів).
                     </p>
                     <div className="flex-center mt-8">
-                      <SelectDates />
+                      <SelectDates maxDays={isProPlan ? 30 : 5} />
                     </div>
                   </div>
                 </div>
@@ -305,7 +337,9 @@ const CreateTrip = () => {
                 </button>
                 {isDurationTooLong && (
                   <p className="text-sm text-red-600 mt-2">
-                    На безкоштовному тарифі доступно максимум 5 днів
+                    {isProPlan
+                      ? "На Pro тарифі доступно максимум 30 днів"
+                      : "На безкоштовному тарифі доступно максимум 5 днів"}
                   </p>
                 )}
               </div>

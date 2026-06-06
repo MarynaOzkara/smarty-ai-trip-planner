@@ -69,7 +69,7 @@ const TripDetails = () => {
                 <h1 className="mb-2 line-clamp-2">
                   {trip?.userSelection?.destination}
                 </h1>
-                <p className="text-sm md:text-lg text-gray-300">
+                <p className="text-sm md:text-lg text-gray-100">
                   {trip?.tripData?.tripNote?.split(".")[0]}
                 </p>
               </div>
