@@ -30,7 +30,7 @@ const Hero = () => {
               <span className="absolute inline-flex animate-ping w-full h-full rounded-full bg-accent opacity-75" />
               <span className="relative inline-flex h-3 w-3 bg-secondary rounded-full" />
             </div>
-            <span>Smarty AI Trip Planner</span>
+            <span>AI Smarty Trip Planner</span>
           </div>
           <h1 className="pb-6 lg:pb-10">
             Плануй подорож <br /> за 1 хвилину з{" "}
