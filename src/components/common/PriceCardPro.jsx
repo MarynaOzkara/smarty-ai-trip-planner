@@ -34,7 +34,7 @@ const PriceCardPro = () => {
     <div className="bg-white p-6 max-w-md rounded-2xl shadow-sm border border-gray-100">
       <h3>AI Smarty Pro</h3>
       <p className="text-gray-600 mt-6 text-[16px]">
-        Плануй подорожі швидше, розумніше та без обмежень. <b>AI Smarty Pro</b>
+        Плануй подорожі швидше, розумніше та без обмежень. <b>AI Smarty Pro</b>{" "}
         створений для активних мандрівників, digital travelers та всіх, хто хоче
         отримувати персоналізовані AI-маршрути за кілька хвилин.
       </p>
