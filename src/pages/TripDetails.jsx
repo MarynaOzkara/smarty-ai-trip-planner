@@ -53,7 +53,7 @@ const TripDetails = () => {
         <div>
           <div className="relative h-98 md:h-111 bg-gray-900">
             <img
-              src={placePhoto ? placePhoto : "/template.jpg"}
+              src={placePhoto ? placePhoto : "/public/ai-smarty-travels.png"}
               alt={trip?.userSelection?.destination}
               className="w-full h-full object-cover opacity-80"
             />

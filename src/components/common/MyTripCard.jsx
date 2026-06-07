@@ -20,7 +20,7 @@ const MyTripCard = ({ trip, deleteTrip }) => {
       <div className="h-50 relative">
         <img
           className="w-full h-full object-cover rounded-lg"
-          src={tripPhoto ? tripPhoto : "/template.jpg"}
+          src={tripPhoto ? tripPhoto : "/ai-smarty-travels.png"}
           alt={trip?.userSelection?.destination}
         />
         <button

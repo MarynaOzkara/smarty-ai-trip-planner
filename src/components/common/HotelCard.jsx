@@ -20,7 +20,7 @@ const HotelCard = ({ hotel }) => {
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="h-50 bg-gray-200 relative">
           <img
-            src={hotelPhoto ? hotelPhoto : "/template.jpg"}
+            src={hotelPhoto ? hotelPhoto : "/ai-smarty-travels.png"}
             alt={hotel?.hotelName}
             className="h-full w-full object-cover"
           />

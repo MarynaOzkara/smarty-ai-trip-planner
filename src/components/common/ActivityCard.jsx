@@ -47,7 +47,7 @@ const ActivityCard = ({ activity }) => {
         <div className="block mt-2 border border-gray-200 rounded-lg hover:shadow-2xs focus: outline-hidden overflow-hidden">
           <div className="relative flex flex-col sm:flex-row overflow-hidden sm:h-60">
             <img
-              src={activityPhoto ? activityPhoto : `/template.jpg`}
+              src={activityPhoto ? activityPhoto : `/ai-smarty-travels.png`}
               alt={activity?.placeName}
               className="h-50 w-full md:h-full md:w-60 object-cover inset-0"
             />
