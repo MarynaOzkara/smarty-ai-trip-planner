@@ -9,9 +9,32 @@ const chat = ai.chats.create({
       parts: [
         {
           text: `Generate a Travel Plan from origin: Tallinn to destination: Sintra, with startDate 03/07/2026 and endDate 05/07/2026 for 2 days for family for a budget budget with a flight details, airlines, flight price with a booking url, hotels options with list of 3-5 hotels with hotel name, hotel address, price only per 1 night, rating, descriptions, booking url, and places to visit nearby with place name, address, details, price ,ticket pricing, booking url, time to travel each of the locations for 1 day plan with best time to visit. Please include also in the itinerary real restaurants or caffe where people can have a breakfast, launch and dinner with only real place name, address and price. Plan please itinerary activities time from 09:00 - 18:00. Don’t include in itineraty flight and hotel, start straightaway from activities. And calculate approximately price for trip for one person including flight price, hotel price for all days and activities price. Geve descriptions for tripNote, hotel description, activity and activities details, howToGetTo and transfer details(max 1 sentence) in Ukrainian language, other data in english. hotelName and placeName only data name in english without any description.
-1.Search flights at kiwi.com and add bookin url https://www.kiwi.com/deep?affilid=ozkarablogaitripplanner&currency=EUR&departure=anytime&lang=en&return=anytime&returnFromDifferentAirport=false&returnToDifferentAirport=false. Only change destination and dates for trip, for example for Prague from 16 March to 18 March https://www.kiwi.com/deep?affilid=ozkarablogaitripplanner&currency=EUR&departure=2026-03-16_2026-03-16&destination=prague_cz&lang=en&return=2026-03-18_2026-03-18&returnFromDifferentAirport=false&returnToDifferentAirport=false
+1.Search flights at kiwi.com and add bookin url https://www.kiwi.com/deep?affilid=ozkarablogaitripplanner&currency=EUR&from=anywhere&to=anywhere&departure=anytime&lang=uk&return=anytime. Only change from=origin and to=destination and dates depature and return for trip, for example for trip from Tallinn to Prague from 16 August to 18 August https://www.kiwi.com/deep?affilid=ozkarablogaitripplanner&currency=EUR&departure=2026-08-16_2026-08-16&from=TLL&to=PRG&lang=uk&return=2026-08-18_2026-08-18.
 2. Search hotels at booking.com and add booking url https://www.booking.com/.
-3.Search tickets for activities at https://tiqets.com. When you make a booking url for activity, use always this link https://www.tiqets.com/{activity}/?partner=smarty_travels-187662.
+3.Search tickets for activities at https://www.tiqets.com/?partner=smarty_travels-187662. If you can find country of destination in the list, use suitable link: https://www.tiqets.com/spain-attractions-z50067/?partner=smarty_travels-187662
+https://www.tiqets.com/portugal-attractions-z50184/?partner=smarty_travels-187662
+https://www.tiqets.com/things-to-do-in-france-z50074/?partner=smarty_travels-187662
+https://www.tiqets.com/belgium-attractions-z50019/?partner=smarty_travels-187662
+https://www.tiqets.com/ireland-attractions-z50101/?partner=smarty_travels-187662
+https://www.tiqets.com/germany-attractions-z50056/?partner=smarty_travels-187662
+https://www.tiqets.com/austria-attractions-z50011/?partner=smarty_travels-187662
+https://www.tiqets.com/italy-attractions-z50109/?partner=smarty_travels-187662
+https://www.tiqets.com/greece-attractions-z50088/?partner=smarty_travels-187662
+https://www.tiqets.com/hungary-attractions-z50099/?partner=smarty_travels-187662
+https://www.tiqets.com/poland-attractions-z50179/?partner=smarty_travels-187662
+https://www.tiqets.com/norway-attractions-z50167/?partner=smarty_travels-187662
+https://www.tiqets.com/sweden-attractions-z50198/?partner=smarty_travels-187662
+https://www.tiqets.com/finland-attractions-z50069/?partner=smarty_travels-187662
+https://www.tiqets.com/turkey-attractions-z50225/?partner=smarty_travels-187662
+https://www.tiqets.com/iceland-attractions-z50108/?partner=smarty_travels-187662
+https://www.tiqets.com/czech-republic-attractions-z50055/?partner=smarty_travels-187662
+https://www.tiqets.com/slovakia-attractions-z50203/?partner=smarty_travels-187662
+https://www.tiqets.com/croatia-attractions-z50097/?partner=smarty_travels-187662
+https://www.tiqets.com/united-kingdom-attractions-z50076/?partner=smarty_travels-187662
+https://www.tiqets.com/romania-attractions-z50189/?partner=smarty_travels-187662
+https://www.tiqets.com/estonia-attractions-z50063/?partner=smarty_travels-187662
+https://www.tiqets.com/latvia-attractions-z50135/?partner=smarty_travels-187662
+https://www.tiqets.com/lithuania-attractions-z50133/?partner=smarty_travels-187662 .If not use just https://www.tiqets.com/?partner=smarty_travels-187662.
 4.If you can't find booking url leave emty string, do not write N/A or any other text, only empty string. For example, if you can't find booking url for restaurant, it should be "bookingUrl": "".
 5.Only, if origin city located in Ukraine, please search flights from Poland, Romania, Slovakia, Hungary, Moldova. For example, if origin is Kyiv, search flights from Warsaw, Budapest, Bratislava, Bucharest, Chisinau. Add in trip buss from origin city to nearest city with flights and add in strict schema transferFromOrigin: booking url, company name and price for bus tickets search at https://infobus.eu/ua/bus?partner=3695&marker_id=252590&currency=EUR. Only add from and to and dates, for example for trip from Kyiv to Warsaw https://infobus.eu/ua/Kyiv/Warsaw/09.06/7/?partner=3695&marker_id=252590&currency=EUR.
 6.If origin city located in Ukraine and destination city located in Ukraine don't add flight, only add transferToDestination with strict schema transferToDestination with booking url, company name and price for bus tickets search at https://infobus.eu/ua/bus?partner=3695&marker_id=252590&currency=EUR. Only add from and to and dates, for example for trip from Kyiv to Lviv https://infobus.eu/ua/Kyiv/Lviv/09.06/7/?partner=3695&marker_id=252590&currency=EUR. 
