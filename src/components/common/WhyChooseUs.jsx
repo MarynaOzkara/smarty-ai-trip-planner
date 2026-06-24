@@ -2,6 +2,7 @@ import { FaRegClock } from "react-icons/fa6";
 import { GiReceiveMoney } from "react-icons/gi";
 import { BsStars } from "react-icons/bs";
 import { IoDiamond } from "react-icons/io5";
+import { motion } from "framer-motion";
 
 const CHOOSE_OPTIONS = [
   {
@@ -32,33 +33,33 @@ const CHOOSE_OPTIONS = [
 
 const WhyChooseUs = () => {
   return (
-    <section className="py-10 lg:py-20 bg-secondary-foreground">
+    <section className="py-10 lg:py-20">
       <div className="max-padd-container">
-        <h2 className="text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
           Чому обирають <span className="text-accent">AI Smarty Travels?</span>
-        </h2>
+        </motion.h2>
         <div className="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-10 ">
-          {CHOOSE_OPTIONS.map((item) => (
-            <div
+          {CHOOSE_OPTIONS.map((item, i) => (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.15 }}
               key={item.id}
-              className="bg-background flex flex-col items-center gap-4 p-6 md:flex-row rounded-2xl hover:scale-105 shadow-sm"
+              className="bg-background flex flex-col items-center gap-4 p-6 md:flex-row rounded-2xl hover:scale-102 shadow-sm"
             >
               <div>{item.icon}</div>
               <div>
                 <h4 className="font-bold">{item.title}</h4>
                 <p className="text-sm">{item.desc}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
-        <div className="mt-6 md:mt-10 text-center">
-          <p>
-            Якщо ви шукаєте зручний планувальник подорожей онлайн або AI
-            itinerary planner, який допоможе організувати подорож без зайвого
-            стресу, <b>AI Smarty Travels</b> стане вашим надійним помічником.
-            Створіть свій маршрут уже сьогодні та відкрийте новий спосіб
-            планування подорожей за допомогою штучного інтелекту.
-          </p>
         </div>
       </div>
     </section>

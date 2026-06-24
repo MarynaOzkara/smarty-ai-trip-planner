@@ -81,7 +81,7 @@ const Header = () => {
               onClick={() => createTrip()}
               variant="outline"
               size="lg"
-              className="cursor-pointer px-5 text-sm"
+              className="cursor-pointer px-5 text-sm transition-colors hover:bg-accent hover:text-white"
             >
               <Plus className="w-4 h-4" />
               Подорож
@@ -91,7 +91,7 @@ const Header = () => {
               onClick={() => navigate("/my-trips")}
               variant="outline"
               size="lg"
-              className="cursor-pointer px-5 text-sm"
+              className="cursor-pointer px-5 text-sm transition-colors hover:bg-accent hover:text-white"
             >
               Мої Подорожі
             </Button>

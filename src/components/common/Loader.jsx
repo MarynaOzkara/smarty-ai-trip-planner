@@ -17,7 +17,7 @@ const Loader = () => {
           transition={{ repeat: Infinity, duration: 3.5 }}
         >
           <img
-            className="w-55 py-15 md:py-5 md:w-65 lg:w-80"
+            className="w-50 py-15 md:py-5 md:w-55 lg:w-60"
             src="/SmartyAI.png"
             alt="Smarty AI"
           />

@@ -1,11 +1,24 @@
+import { motion } from "framer-motion";
+
 const HowItWork = () => {
   return (
     <section id="how-it-work" className="max-padd-container py-10 lg:py-20">
-      <h2 className="text-center">
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="text-center"
+      >
         Як працює <span className="text-accent">AI Smarty Travels?</span>
-      </h2>
+      </motion.h2>
       <div className="mt-6 md:mt-10 grid gap-6 md:gap-10 grid-cols-1 lg:grid-cols-3">
-        <div className="relative h-70 bg-secondary-foreground p-8 rounded-2xl border border-muted-foreground shadow-sm hover:scale-105">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="relative h-70 bg-secondary-foreground p-8 rounded-2xl shadow-sm hover:scale-102"
+        >
           {/* Step 1 */}
           <div className="flex flex-col">
             <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
@@ -17,15 +30,19 @@ const HowItWork = () => {
                 Оберіть звідки і куди плануєте наступну подорож
               </p>
             </div>
-
             <img
-              className="w-22 lg:w-15 xl:w-25 absolute bottom-2 right-2"
-              src="/Smarty-thinking.png"
-              alt="Smarty Ai thinking"
+              src="/location.svg"
+              className="w-18 lg:w-12 xl:w-20 absolute bottom-8 right-8 lg:bottom-3 lg:right-3 xl:bottom-8 xl:right-8"
             />
           </div>
-        </div>
-        <div className="relative h-70 bg-secondary-foreground p-8 rounded-2xl border border-muted-foreground shadow-sm hover:scale-105">
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+          className="relative h-70 bg-secondary-foreground p-8 rounded-2xl shadow-sm hover:scale-102"
+        >
           {/* Step 2 */}
           <div className="flex flex-col">
             <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
@@ -38,13 +55,18 @@ const HowItWork = () => {
               </p>
             </div>
             <img
-              className="w-30 lg:w-20 xl:w-35 absolute bottom-2 right-2"
-              src="/Smarty-calendar.png"
-              alt="Smarty Ai with calendar"
+              src="/calendar-st.svg"
+              className="w-18 lg:w-12 xl:w-20 absolute bottom-8 right-8 lg:bottom-3 lg:right-3 xl:bottom-8 xl:right-8"
             />
           </div>
-        </div>
-        <div className="relative h-70 bg-secondary-foreground p-8 rounded-2xl border border-muted-foreground shadow-sm hover:scale-105">
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6 }}
+          className="relative h-70 bg-secondary-foreground p-8 rounded-2xl shadow-sm hover:scale-102"
+        >
           {/* Step 3 */}
           <div className="flex flex-col">
             <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
@@ -57,12 +79,11 @@ const HowItWork = () => {
               </p>
             </div>
             <img
-              className="w-30 lg:w-20 xl:w-35 absolute bottom-2 right-2"
-              src="/SmartyAI.png"
-              alt="Smarty Ai trip plan"
+              src="/one-way-trip.svg"
+              className="w-18 lg:w-12 xl:w-20 absolute bottom-8 right-8 lg:bottom-3 lg:right-3 xl:bottom-8 xl:right-8"
             />
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

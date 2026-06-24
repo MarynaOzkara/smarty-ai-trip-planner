@@ -3,18 +3,44 @@ import { FaPlane } from "react-icons/fa";
 import { FaHotel } from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { FaWallet } from "react-icons/fa";
-
+import { BsStars } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
+import { CheckCircle } from "lucide-react";
+import { useClerk, useUser } from "@clerk/react";
+import { motion } from "framer-motion";
 
 const TripExample = () => {
   const navigate = useNavigate();
+  const { user } = useUser();
+  const { openSignIn } = useClerk();
+
+  const createTrip = () => {
+    if (!user) {
+      openSignIn();
+      return;
+    }
+    navigate("/create-trip");
+  };
   return (
     <section className="py-10 lg:py-20 bg-secondary-foreground">
       <div className="max-padd-container">
-        <h2 className="text-center">Приклад подорожі</h2>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          Приклад подорожі
+        </motion.h2>
         <div className="mt-6 md:mt-10 grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-10 ">
-          <div className="bg-white h-80 rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="bg-white h-80 rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+          >
             <img
               className="h-60 w-full object-cover"
               src="/barcelona.jpg"
@@ -32,8 +58,14 @@ const TripExample = () => {
                 <h4>2 дорослих</h4>
               </div>
             </div>
-          </div>
-          <div className="bg-white h-80 rounded-2xl shadow-sm border border-gray-100">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="bg-white h-80 rounded-2xl shadow-sm border border-gray-100"
+          >
             <div className="p-6 lg:p-4 xl:p-6 flex flex-col gap-4">
               <div className="flex items-start gap-6 lg:gap-2 xl:gap-6">
                 <FaPlane className="w-7 h-7 text-accent" />
@@ -70,25 +102,39 @@ const TripExample = () => {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="relative bg-white h-70 md:h-80 rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="p-6 lg:p-4 xl:p-6 text-center">
-              <h4 className="font-bold">Готовий план за 1 хвилину!</h4>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.6 }}
+            className="relative bg-white h-70 md:h-80 rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+          >
+            <div className="flex flex-col gap-6 lg:gap-8 p-6 lg:p-4 xl:p-6">
+              <h4 className="font-bold">Отримайте свій маршрут зараз</h4>
+              <div>
+                <p className="flex items-center gap-2 mb-1">
+                  <CheckCircle className="w-5 h-5 text-accent" /> Швидко
+                </p>
+                <p className="flex items-center gap-2 mb-1">
+                  <CheckCircle className="w-5 h-5 text-accent" /> Зручно
+                </p>
+                <p className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-accent" />{" "}
+                  Персоналізовано
+                </p>
+              </div>
               <Button
-                onClick={() => navigate("/create-trip")}
+                onClick={createTrip}
                 className="mt-6 py-6 px-8 cursor-pointer hover:bg-secondary text-xl"
               >
-                Спробувати зараз
+                Створити подорож <BsStars className="w-6 h-6 text-white" />
               </Button>
-              <img
-                className="w-30 xl:w-40 absolute left-15 bottom-5"
-                src="/Smarty-ready.png"
-                alt="Smarty Ai ready"
-              />
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
+      {/* </div> */}
     </section>
   );
 };
