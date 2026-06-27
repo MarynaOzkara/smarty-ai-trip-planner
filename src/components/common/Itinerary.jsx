@@ -16,7 +16,7 @@ moment.locale("uk");
 const Itinerary = ({ trip }) => {
   return (
     <div>
-      <Accordion type="multiple" defaultValue="item-1">
+      <Accordion type="multiple" defaultValue={["item-1"]}>
         {trip?.tripData?.itinerary?.map((item, index) => (
           <AccordionItem value={`item-${index + 1}`} key={index}>
             <AccordionTrigger className="cursor-pointer">
