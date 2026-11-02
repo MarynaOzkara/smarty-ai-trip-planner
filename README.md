@@ -1,6 +1,6 @@
 # ✈️ AI Smarty Travels 
 
-Smarty Travels is an AI-powered travel planning application designed to make organizing independent trips easier and more accessible.
+AI Smarty Travels is an AI-powered travel planning application designed to make organizing independent trips easier and more accessible.
 
 The platform helps travelers generate personalized itineraries based on their destination, travel dates, interests, and preferences. Instead of spending hours researching places and planning routes, users can get an AI-generated travel plan tailored to their needs.
 
