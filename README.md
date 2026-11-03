@@ -30,4 +30,4 @@ The platform helps travelers generate personalized itineraries based on their de
 
 ## Project Goal
 
-The goal of Smarty Travels is to simplify independent travel planning through AI technology, helping users save time, discover new destinations, and create travel experiences that match their individual preferences.
+The goal of Smarty Travels is to simplify independent travel planning through AI technology, helping users from Ukraine save time, discover new destinations, and create travel experiences that match their individual preferences.
