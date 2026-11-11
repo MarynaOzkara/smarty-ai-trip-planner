@@ -1,16 +1,33 @@
-# React + Vite
+# ✈️ AI Smarty Travels 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+AI Smarty Travels is an AI-powered travel planning application designed to make organizing independent trips easier and more accessible.
 
-Currently, two official plugins are available:
+The platform helps travelers generate personalized itineraries based on their destination, travel dates, interests, and preferences. Instead of spending hours researching places and planning routes, users can get an AI-generated travel plan tailored to their needs.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Key Features
 
-## React Compiler
+-**AI-Powered Itinerary Generation** — Generate personalized travel plans using AI.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+-**Personalized Travel Planning** — Create itineraries based on destination, trip duration, interests, and preferences.
 
-## Expanding the ESLint configuration
+-**Flexible Trip Planning** — Organize independent trips without relying on traditional travel agencies.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+-**User Authentication** — Secure sign-in and user account management.
+
+-**Free and Pro Plans** — Different usage limits depending on the subscription level.
+
+## Tech Stack
+
+1. **Frontend**: React.js
+
+2. **Styling**: Tailwind CSS
+
+3. **Database**: Firebase Firestore
+
+4. **Authentication**: Clerk
+
+5. **AI Integration**: Google Gemini 2.5 Flash
+
+## Project Goal
+
+The goal of Smarty Travels is to simplify independent travel planning through AI technology, helping users from Ukraine save time, discover new destinations, and create travel experiences that match their individual preferences.
